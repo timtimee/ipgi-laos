@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Hour Jackpot</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+/* ================= BACKGROUND ================= */
+
+body{
+    background: radial-gradient(circle at top, #1a1f2e 0%, #0c111b 60%, #070b12 100%);
+    color:#f5f5f5;
+    overflow-x:hidden;
+}
+
+/* ================= LUXURY SCROLL REVEAL ================= */
+
+.game{
+    opacity:0;
+    transform:translateY(40px);
+    filter:blur(8px);
+    transition:all 1s ease;
+}
+
+.game.show{
+    opacity:1;
+    transform:translateY(0);
+    filter:blur(0);
+}
+
+.game:nth-child(1){ transition-delay: 0.1s; }
+.game:nth-child(2){ transition-delay: 0.2s; }
+.game:nth-child(3){ transition-delay: 0.3s; }
+.game:nth-child(4){ transition-delay: 0.4s; }
+
+/* ================= BACKGROUND LIGHT SWEEP ================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    top:-50%;
+    left:-50%;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle at center, rgba(230,193,90,0.05), transparent 60%);
+    animation:lightMove 18s linear infinite;
+    pointer-events:none;
+    z-index:-1;
+}
+
+@keyframes lightMove{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding:12px 8%;
+    display:flex;
+    align-items:center;
+    background:rgba(0,0,0,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(230,193,90,0.2);
+    z-index:1000;
+}
+
+.logo img{
+    height:42px;
+    width:auto;
+    transition:0.3s ease;
+}
+
+.logo img:hover{
+    transform:scale(1.05);
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    padding:100px 10%;
+    padding-top:130px;
+    text-align:center;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));
+}
+
+.hero h1{
+    font-size:3rem;
+    color:#e6c15a;
+    margin-bottom:20px;
+    letter-spacing:1px;
+    text-shadow:
+        0 0 8px rgba(230,193,90,0.5),
+        0 0 18px rgba(230,193,90,0.3);
+}
+
+.hero h2{
+    color:#7fffd4;
+    margin-bottom:30px;
+    letter-spacing:1px;
+}
+
+/* ================= EVENT BOX ================= */
+
+.event-box{
+    max-width:900px;
+    margin:auto;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(230,193,90,0.25);
+    border-radius:18px;
+    padding:50px;
+    backdrop-filter:blur(20px);
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.6),
+        0 0 30px rgba(230,193,90,0.08);
+    transition:0.4s ease;
+}
+
+.event-box:hover{
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.8),
+        0 0 45px rgba(230,193,90,0.15);
+}
+
+.prize{
+    margin:12px 0;
+    font-size:1.15rem;
+    letter-spacing:0.5px;
+}
+
+.highlight{
+    color:#7fffd4;
+    font-weight:600;
+}
+
+.schedule{
+    margin-top:25px;
+    line-height:1.8;
+    opacity:0.85;
+}
+
+.cta{
+    margin-top:35px;
+    font-size:1.25rem;
+    color:#e6c15a;
+    font-weight:600;
+    letter-spacing:1px;
+}
+
+/* ================= JACKPOT SECTION ================= */
+
+.jackpot-hits{
+    padding:120px 10%;
+    text-align:center;
+    background:#0c111b;
+}
+
+.jackpot-hits h1{
+    font-size:2.5rem;
+    margin-bottom:70px;
+    color:#e6c15a;
+    letter-spacing:1px;
+}
+
+.game{
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(230,193,90,0.2);
+    border-radius:18px;
+    padding:45px;
+    margin-bottom:60px;
+    backdrop-filter:blur(15px);
+    box-shadow:
+        0 15px 50px rgba(0,0,0,0.6),
+        0 0 20px rgba(230,193,90,0.08);
+}
+
+.game h2{
+    color:#e6c15a;
+    margin-bottom:25px;
+    letter-spacing:1px;
+}
+
+.levels{
+    display:flex;
+    justify-content:space-between;
+    gap:25px;
+    flex-wrap:wrap;
+}
+
+.level{
+    flex:1;
+    min-width:250px;
+    background:rgba(0,0,0,0.5);
+    padding:30px;
+    border-radius:15px;
+}
+
+/* ================= COUNTER ================= */
+
+.amount{
+    font-size:2rem;
+    font-weight:700;
+    margin:15px 0;
+    background:linear-gradient(90deg,#e6c15a,#fff3c4,#e6c15a);
+    background-size:200% auto;
+    color:transparent;
+    background-clip:text;
+    -webkit-background-clip:text;
+}
+
+.amount.shimmer{
+    animation:shimmer 1.2s linear infinite;
+}
+
+.amount.pulse{
+    animation:pulseGlow 2s ease infinite alternate;
+}
+
+@keyframes shimmer{
+    to{background-position:-200% center;}
+}
+
+@keyframes pulseGlow{
+    from{text-shadow:0 0 8px rgba(230,193,90,0.5);}
+    to{text-shadow:0 0 22px rgba(230,193,90,0.8);}
+}
+
+.date{
+    font-size:0.9rem;
+    color:#ccc;
+}
+
+/* ================= SCROLL PROGRESS ================= */
+
+.scroll-progress{
+    position:fixed;
+    top:0;
+    left:0;
+    height:3px;
+    width:0%;
+    background:linear-gradient(90deg,#e6c15a,#fff3c4,#e6c15a);
+    z-index:2000;
+}
+
+/* ================= GOLD DIVIDER ================= */
+
+.gold-divider{
+    height:1px;
+    width:80%;
+    margin:60px auto;
+    background:linear-gradient(90deg,transparent,#e6c15a,transparent);
+    position:relative;
+    overflow:hidden;
+}
+
+.gold-divider::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-50%;
+    width:50%;
+    height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.6),transparent);
+    animation:dividerSweep 4s infinite;
+}
+
+@keyframes dividerSweep{
+    to{left:100%;}
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+    .hero h1{font-size:2rem;}
+    .levels{flex-direction:column;}
+}
+/* ================= VIP FOOTER ================= */
+
+.vip-footer{
+    background:#070b12;
+    padding:60px 10% 40px;
+    text-align:center;
+    position:relative;
+}
+
+.footer-divider{
+    width:120px;
+    height:2px;
+    margin:0 auto 25px;
+    background:linear-gradient(90deg,transparent,#e6c15a,transparent);
+    position:relative;
+    overflow:hidden;
+}
+
+.footer-divider::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-50%;
+    width:50%;
+    height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.6),transparent);
+    animation:footerSweep 5s infinite;
+}
+
+@keyframes footerSweep{
+    to{left:100%;}
+}
+
+.vip-footer p{
+    font-size:0.9rem;
+    letter-spacing:1px;
+    color:#bfa75a;
+    opacity:0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="scroll-progress"></div>
+
+<nav class="navbar">
+    <div class="logo">
+	    <a href="https://indo.com.au" target="_blank" rel="noopener">
+        <img src="https://indo.com.au/wp-content/uploads/2024/03/Group-3-1.png" alt="Company Logo">
+		</a>
+    </div>
+</nav>
+
+<section class="hero">
+<h1>Happy Hour - Jackpot</h1>
+<h2>On-Going Event</h2>
+
+<div class="event-box">
+
+<div class="prize">
+1st Prize - <span class="highlight">15,000 THB</span> (min bet: 5,000 THB)
+</div>
+
+<div class="prize">
+2nd Prize - <span class="highlight">10,000 THB</span> (min bet: 3,000 THB)
+</div>
+
+<div class="prize">
+3rd Prize - <span class="highlight">5,000 THB</span> (min bet: 1,000 THB)
+</div>
+
+<div class="schedule">
+<strong>Starts every Friday</strong><br>
+1st Session: 18:01H - 18:45H<br>
+2nd Session: 19:01H - 19:45H
+</div>
+
+<div style="margin-top:25px; opacity:0.85; line-height:1.7;">
+Play at <strong>First Floor – Zone C</strong><br>
+Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines
+</div>
+
+<div class="cta">
+Play and chance to win a Jackpot!
+</div>
+</div>
+</section>
+
+<section class="jackpot-hits">
+<h1>Last Jackpot Hits</h1>
+
+<div class="game">
+<h2>KungFu Saga</h2>
+<div class="levels">
+<div class="level">
+<strong>Level 1</strong>
+<div class="amount" data-target="348935.00">0</div>
+<div class="date">Date: 11-01-26</div>
+</div>
+<div class="level">
+<strong>Level 2</strong>
+<div class="amount" data-target="114013.00">0</div>
+<div class="date">Date: 14-01-26</div>
+</div>
+</div>
+</div>
+<div class="gold-divider"></div>
+
+<div class="game">
+<h2>Caishen Prosperity</h2>
+<div class="levels">
+<div class="level">
+<strong>Level 1</strong>
+<div class="amount" data-target="198620.19">0</div>
+<div class="date">Date: 20-01-26</div>
+</div>
+<div class="level">
+<strong>Level 2</strong>
+<div class="amount" data-target="409403.79">0</div>
+<div class="date">Date: 03-02-26</div>
+</div>
+</div>
+</div>
+<div class="gold-divider"></div>
+
+<div class="game">
+<h2>Good Fortune</h2>
+<div class="levels">
+<div class="level">
+<strong>Level 1</strong>
+<div class="amount" data-target="750000.00">0</div>
+<div class="date">Date: 01-01-01</div>
+</div>
+<div class="level">
+<strong>Level 2</strong>
+<div class="amount" data-target="400000.00">0</div>
+<div class="date">Date: 01-01-01</div>
+</div>
+</div>
+</div>
+<div class="gold-divider"></div>
+<div class="game">
+<h2>Diamond Jackpot</h2>
+<div class="levels">
+<div class="level">
+<strong>Level 1</strong>
+<div class="amount" data-target="743400.47">0</div>
+<div class="date">Date: 10-12-25</div>
+</div>
+<div class="level">
+<strong>Level 2</strong>
+<div class="amount" data-target="199048.30">0</div>
+<div class="date">Date: 13-02-26</div>
+</div>
+</div>
+</div>
+<div class="gold-divider"></div>
+</section>
+
+<script>
+
+const counters = document.querySelectorAll('.amount');
+
+const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            obs.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.6 });
+
+counters.forEach(counter => observer.observe(counter));
+
+function animateCounter(counter){
+    const target = parseInt(counter.getAttribute('data-target'));
+    let count = 0;
+    const duration = 2000;
+    const increment = target / (duration / 16);
+
+    counter.classList.add('shimmer');
+
+    function update(){
+        count += increment;
+
+        if(count < target){
+            counter.textContent = formatNumber(Math.floor(count)) + " THB";
+            requestAnimationFrame(update);
+        }else{
+            counter.textContent = formatNumber(target) + " THB";
+            counter.classList.remove('shimmer');
+            counter.classList.add('pulse');
+        }
+    }
+
+    update();
+}
+
+function formatNumber(num){
+    return num.toLocaleString();
+}
+
+/* JACKPOT CARD SCROLL ANIMATION */
+
+const jackpotCards = document.querySelectorAll('.game');
+
+const cardObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.2 });
+
+jackpotCards.forEach(card => {
+    cardObserver.observe(card);
+});
+
+/* Scroll Progress */
+
+window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    document.querySelector('.scroll-progress').style.width = progress + "%";
+});
+
+</script>
+
+</body>
+
+<footer class="vip-footer">
+    <div class="footer-content">
+        <div class="footer-divider"></div>
+        <p>© 2026 IPGI Laos. All rights reserved.</p>
+    </div>
+</footer>
+
+</html>
