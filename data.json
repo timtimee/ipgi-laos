@@ -3,24 +3,24 @@
 
   "current": {
     "kungFuSaga": {
-      "level1": 500000,
-      "level2": 250000,
-      "date": "Live"
+      "level1": 520000,
+      "level2": 260000,
+      "time": "19:32"
     },
     "caishenProsperity": {
-      "level1": 420000,
-      "level2": 210000,
-      "date": "Live"
+      "level1": 410000,
+      "level2": 205000,
+      "time": "19:32"
     },
     "goodFortune": {
       "level1": 750000,
       "level2": 400000,
-      "date": "Live"
+      "time": "19:32"
     },
     "diamondJackpot": {
       "level1": 900000,
       "level2": 300000,
-      "date": "Live"
+      "time": "19:32"
     }
   },
 
@@ -31,18 +31,18 @@
       "date": "11-01-26"
     },
     "caishenProsperity": {
-      "level1": 198620.19,
-      "level2": 409403.79,
+      "level1": 198620,
+      "level2": 409403,
       "date": "03-02-26"
     },
     "goodFortune": {
       "level1": 750000,
       "level2": 400000,
-      "date": "01-01-01"
+      "date": "01-01-26"
     },
     "diamondJackpot": {
-      "level1": 743400.47,
-      "level2": 199048.30,
+      "level1": 743400,
+      "level2": 199048,
       "date": "13-02-26"
     }
   }
