@@ -315,12 +315,20 @@ function renderJackpot(){
                 <div class="level">
                     <strong>Level 1</strong>
                     <div class="amount" data-target="${game.level1}">0</div>
-                    <div class="date">Date: ${game.date}</div>
+                    <div class="date">
+                        ${currentMode === "current" 
+                            ? "Updated: " + (game.time || "--:--") 
+                            : "Date: " + (game.date || "--")}
+                    </div>
                 </div>
                 <div class="level">
                     <strong>Level 2</strong>
                     <div class="amount" data-target="${game.level2}">0</div>
-                    <div class="date">Date: ${game.date}</div>
+                    <div class="date">
+                        ${currentMode === "current" 
+                            ? "Updated: " + (game.time || "--:--") 
+                            : "Date: " + (game.date || "--")}
+                    </div>
                 </div>
             </div>
         </div>
@@ -387,4 +395,5 @@ document.addEventListener("click",function(e){
 </script>
 
 </body>
+
 </html>
