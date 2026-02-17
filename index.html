@@ -305,7 +305,9 @@ function renderJackpot(){
     const container = document.getElementById("jackpot-container");
     const title = document.getElementById("jackpot-title");
 
-    title.textContent = currentMode === "current" ? "Current Jackpot" : "Last Jackpot Hits";
+    title.textContent = currentMode === "current"
+        ? "Current Jackpot"
+        : "Last Jackpot Hits";
 
     container.innerHTML = "";
 
@@ -322,18 +324,23 @@ function renderJackpot(){
                     <strong>Level 1</strong>
                     <div class="amount" data-target="${game.level1}">0</div>
                     <div class="date">
-                        ${currentMode==="current"
-                            ? "Updated: " + (game.time || "--:--")
-                            : "Date: " + (game.date || "--")}
+                        ${
+                            currentMode === "current"
+                                ? "Updated: " + (game.time || "--:--")
+                                : "Date: " + (game.level1_date || "--")
+                        }
                     </div>
                 </div>
+
                 <div class="level">
                     <strong>Level 2</strong>
                     <div class="amount" data-target="${game.level2}">0</div>
                     <div class="date">
-                        ${currentMode==="current"
-                            ? "Updated: " + (game.time || "--:--")
-                            : "Date: " + (game.date || "--")}
+                        ${
+                            currentMode === "current"
+                                ? "Updated: " + (game.time || "--:--")
+                                : "Date: " + (game.level2_date || "--")
+                        }
                     </div>
                 </div>
             </div>
@@ -390,6 +397,7 @@ function revealOnScroll(){
 
 </body>
 </html>
+
 
 
 
