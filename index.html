@@ -25,13 +25,9 @@ border-bottom:1px solid rgba(255,215,0,0.2);
 z-index:1000;
 }
 
-.logo img{height:42px;cursor:pointer;}
+.logo img{height:42px;}
 
-.lang-switch{
-margin-left:auto;
-display:flex;
-gap:8px;
-}
+.lang-switch{margin-left:auto;display:flex;gap:8px;}
 
 .lang-switch button{
 background:transparent;
@@ -60,16 +56,8 @@ transition:opacity 0.3s ease;
 
 .hero.fade{opacity:0;}
 
-.hero h1{
-font-size:3rem;
-color:#ffd700;
-margin-bottom:20px;
-}
-
-.hero h2{
-color:#00ffcc;
-margin-bottom:30px;
-}
+.hero h1{font-size:3rem;color:#ffd700;margin-bottom:20px;}
+.hero h2{color:#00ffcc;margin-bottom:30px;}
 
 .event-box{
 max-width:900px;
@@ -93,9 +81,7 @@ text-align:center;
 background:#141a2e;
 }
 
-.toggle-buttons{
-margin:30px 0 60px;
-}
+.toggle-buttons{margin:30px 0 60px;}
 
 .toggle-buttons button{
 padding:12px 30px;
@@ -122,53 +108,12 @@ padding:40px;
 margin-bottom:40px;
 box-shadow:0 0 25px rgba(255,215,0,0.1);
 backdrop-filter:blur(10px);
-opacity:0;
-transform:translateY(40px);
-transition:all 0.6s ease;
 }
 
-.game.visible{
-opacity:1;
-transform:translateY(0);
-}
-
-.levels{
-display:flex;
-justify-content:space-between;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.level{
-flex:1;
-min-width:250px;
-background:rgba(0,0,0,0.5);
-padding:25px;
-border-radius:15px;
-}
-
-.amount{
-font-size:2rem;
-font-weight:700;
-margin:15px 0;
-background:linear-gradient(90deg,#ffcc00,#ffffff,#ffcc00);
-background-size:200% auto;
-color:transparent;
-background-clip:text;
--webkit-background-clip:text;
-}
-
-.amount.shimmer{animation:shimmer 1.2s linear infinite;}
-.amount.pulse{animation:pulseGlow 1s ease infinite alternate;}
-
-@keyframes shimmer{to{background-position:-200% center;}}
-@keyframes pulseGlow{from{text-shadow:0 0 10px gold;}to{text-shadow:0 0 25px gold;}}
-
-.date{
-font-size:0.9rem;
-color:#aaa;
-margin-top:8px;
-}
+.levels{display:flex;gap:20px;flex-wrap:wrap;}
+.level{flex:1;min-width:250px;background:rgba(0,0,0,0.5);padding:25px;border-radius:15px;}
+.amount{font-size:2rem;font-weight:700;margin:15px 0;color:#ffd700;}
+.date{font-size:0.9rem;color:#aaa;margin-top:8px;}
 
 footer{
 padding:40px;
@@ -219,7 +164,6 @@ font-size:0.9rem;
 </section>
 
 <section class="jackpot-section">
-
 <h1 id="jackpot-title"></h1>
 
 <div class="toggle-buttons">
@@ -228,18 +172,15 @@ font-size:0.9rem;
 </div>
 
 <div id="jackpot-container"></div>
-
 </section>
 
-<footer>
-© 2026 IPGI Laos. All rights reserved.
-</footer>
+<footer>© 2026 IPGI Laos. All rights reserved.</footer>
 
 <script>
 
-/* ========= LANGUAGE ========= */
+/* ===== TRANSLATIONS ===== */
 
-const translations = {
+const translations={
 en:{
 title:"Happy Hour Jackpot",
 subtitle:"On-Going Event",
@@ -249,15 +190,27 @@ prize3:"3rd Prize - <span class='highlight'>5,000 THB</span> (min bet: 1,000 THB
 schedule:"<strong>Starts every Friday</strong><br>1st Session: 18:01H - 18:45H<br>2nd Session: 19:01H - 19:45H",
 location:"Play at <strong>First Floor – Zone C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
 cta:"Play and chance to win a Jackpot!"
+},
+th:{
+title:"แฮปปี้อาวร์แจ็คพอต",
+subtitle:"กิจกรรมกำลังดำเนินอยู่",
+prize1:"รางวัลที่ 1 - <span class='highlight'>15,000 บาท</span> (เดิมพันขั้นต่ำ: 5,000 บาท)",
+prize2:"รางวัลที่ 2 - <span class='highlight'>10,000 บาท</span> (เดิมพันขั้นต่ำ: 3,000 บาท)",
+prize3:"รางวัลที่ 3 - <span class='highlight'>5,000 บาท</span> (เดิมพันขั้นต่ำ: 1,000 บาท)",
+schedule:"<strong>เริ่มทุกวันศุกร์</strong><br>รอบที่ 1: 18:01 - 18:45<br>รอบที่ 2: 19:01 - 19:45",
+location:"เล่นที่ <strong>ชั้น 1 – โซน C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
+cta:"ร่วมสนุกและลุ้นรับแจ็คพอต!"
 }
 };
+
+/* ===== LANGUAGE SWITCH ===== */
 
 function setLanguage(lang,btn){
 const hero=document.getElementById("hero");
 hero.classList.add("fade");
 
 setTimeout(()=>{
-const t=translations[lang];
+const t=translations[lang]||translations.en;
 document.getElementById("event-title").innerHTML=t.title;
 document.getElementById("event-subtitle").innerHTML=t.subtitle;
 document.getElementById("prize1").innerHTML=t.prize1;
@@ -275,7 +228,7 @@ if(btn) btn.classList.add("active");
 
 setLanguage("en",document.querySelector(".lang-switch button"));
 
-/* ========= JACKPOT ========= */
+/* ===== JACKPOT LOGIC ===== */
 
 let jackpotData={};
 let currentMode="current";
@@ -309,22 +262,20 @@ document.getElementById("btn-last").classList.toggle("active",currentMode==="las
 const title=document.getElementById("jackpot-title");
 
 if(currentMode==="current"){
-const today=new Date();
-const day=String(today.getDate()).padStart(2,'0');
-const monthNames=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const month=monthNames[today.getMonth()];
-const year=String(today.getFullYear()).slice(-2);
+const d=new Date();
+const day=String(d.getDate()).padStart(2,'0');
+const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const month=months[d.getMonth()];
+const year=String(d.getFullYear()).slice(-2);
 title.textContent=`Current Jackpot as of ${day}-${month}-${year}`;
 }else{
 title.textContent="Last Jackpot Hits";
 }
 }
 
-
 function renderJackpot(){
 const container=document.getElementById("jackpot-container");
 container.innerHTML="";
-
 const games=jackpotData[currentMode];
 if(!games)return;
 
@@ -332,34 +283,31 @@ Object.keys(games).forEach(gameKey=>{
 const game=games[gameKey];
 
 container.innerHTML+=`
-<div class="game visible">
+<div class="game">
 <h2>${formatGameName(gameKey)}</h2>
 <div class="levels">
-
 <div class="level">
 <strong>Level 1</strong>
 <div class="amount">${Number(game.level1).toLocaleString()} THB</div>
 <div class="date">
 ${
 currentMode==="current"
-? "Updated: " + (game.time || "--:--")
-: "Date: " + (game.level1_date || "--")
+? "Updated: "+(game.time||"--:--")
+: "Date: "+(game.level1_date||"--")
 }
 </div>
 </div>
-
 <div class="level">
 <strong>Level 2</strong>
 <div class="amount">${Number(game.level2).toLocaleString()} THB</div>
 <div class="date">
 ${
 currentMode==="current"
-? "Updated: " + (game.time || "--:--")
-: "Date: " + (game.level2_date || "--")
+? "Updated: "+(game.time||"--:--")
+: "Date: "+(game.level2_date||"--")
 }
 </div>
 </div>
-
 </div>
 </div>
 `;
@@ -371,6 +319,5 @@ return key.replace(/([A-Z])/g," $1").replace(/^./,str=>str.toUpperCase());
 }
 
 </script>
-
 </body>
 </html>
