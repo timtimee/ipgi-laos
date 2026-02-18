@@ -180,27 +180,57 @@ font-size:0.9rem;
 
 /* ===== TRANSLATIONS ===== */
 
-const translations={
-en:{
-title:"Happy Hour Jackpot",
-subtitle:"On-Going Event",
-prize1:"1st Prize - <span class='highlight'>15,000 THB</span> (min bet: 5,000 THB)",
-prize2:"2nd Prize - <span class='highlight'>10,000 THB</span> (min bet: 3,000 THB)",
-prize3:"3rd Prize - <span class='highlight'>5,000 THB</span> (min bet: 1,000 THB)",
-schedule:"<strong>Starts every Friday</strong><br>1st Session: 18:01H - 18:45H<br>2nd Session: 19:01H - 19:45H",
-location:"Play at <strong>First Floor – Zone C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
-cta:"Play and chance to win a Jackpot!"
-},
-th:{
-title:"แฮปปี้อาวร์แจ็คพอต",
-subtitle:"กิจกรรมกำลังดำเนินอยู่",
-prize1:"รางวัลที่ 1 - <span class='highlight'>15,000 บาท</span> (เดิมพันขั้นต่ำ: 5,000 บาท)",
-prize2:"รางวัลที่ 2 - <span class='highlight'>10,000 บาท</span> (เดิมพันขั้นต่ำ: 3,000 บาท)",
-prize3:"รางวัลที่ 3 - <span class='highlight'>5,000 บาท</span> (เดิมพันขั้นต่ำ: 1,000 บาท)",
-schedule:"<strong>เริ่มทุกวันศุกร์</strong><br>รอบที่ 1: 18:01 - 18:45<br>รอบที่ 2: 19:01 - 19:45",
-location:"เล่นที่ <strong>ชั้น 1 – โซน C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
-cta:"ร่วมสนุกและลุ้นรับแจ็คพอต!"
-}
+const translations = {
+  en:{
+    title:"Happy Hour Jackpot",
+    subtitle:"On-Going Event",
+    prize1:"1st Prize - <span class='highlight'>15,000 THB</span> (min bet: 5,000 THB)",
+    prize2:"2nd Prize - <span class='highlight'>10,000 THB</span> (min bet: 3,000 THB)",
+    prize3:"3rd Prize - <span class='highlight'>5,000 THB</span> (min bet: 1,000 THB)",
+    schedule:"<strong>Starts every Friday</strong><br>1st Session: 18:01H - 18:45H<br>2nd Session: 19:01H - 19:45H",
+    location:"Play at <strong>First Floor – Zone C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
+    cta:"Play and chance to win a Jackpot!"
+  },
+  th:{
+    title:"แฮปปี้อาวร์แจ็คพอต",
+    subtitle:"กิจกรรมกำลังดำเนินอยู่",
+    prize1:"รางวัลที่ 1 - <span class='highlight'>15,000 บาท</span> (เดิมพันขั้นต่ำ: 5,000 บาท)",
+    prize2:"รางวัลที่ 2 - <span class='highlight'>10,000 บาท</span> (เดิมพันขั้นต่ำ: 3,000 บาท)",
+    prize3:"รางวัลที่ 3 - <span class='highlight'>5,000 บาท</span> (เดิมพันขั้นต่ำ: 1,000 บาท)",
+    schedule:"<strong>เริ่มทุกวันศุกร์</strong><br>รอบที่ 1: 18:01 - 18:45<br>รอบที่ 2: 19:01 - 19:45",
+    location:"เล่นที่ <strong>ชั้น 1 – โซน C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
+    cta:"ร่วมสนุกและลุ้นรับแจ็คพอต!"
+  },
+  zh:{
+    title:"欢乐时光累积大奖",
+    subtitle:"正在进行中",
+    prize1:"一等奖 - <span class='highlight'>15,000 泰铢</span>（最低投注：5,000 泰铢）",
+    prize2:"二等奖 - <span class='highlight'>10,000 泰铢</span>（最低投注：3,000 泰铢）",
+    prize3:"三等奖 - <span class='highlight'>5,000 泰铢</span>（最低投注：1,000 泰铢）",
+    schedule:"<strong>每周五开始</strong><br>第一场：18:01 - 18:45<br>第二场：19:01 - 19:45",
+    location:"地点：<strong>一楼 C 区</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
+    cta:"参与游戏，赢取大奖！"
+  },
+  lo:{
+    title:"ແຈັກພອດ Happy Hour",
+    subtitle:"ກຳລັງຈັດກິດຈະກຳ",
+    prize1:"ລາງວັນທີ 1 - <span class='highlight'>15,000 ບາດ</span> (ເບດຂັ້ນຕ່ຳ: 5,000 ບາດ)",
+    prize2:"ລາງວັນທີ 2 - <span class='highlight'>10,000 ບາດ</span> (ເບດຂັ້ນຕ່ຳ: 3,000 ບາດ)",
+    prize3:"ລາງວັນທີ 3 - <span class='highlight'>5,000 ບາດ</span> (ເບດຂັ້ນຕ່ຳ: 1,000 ບາດ)",
+    schedule:"<strong>ເລີ່ມທຸກວັນສຸກ</strong><br>ຮອບ 1: 18:01 - 18:45<br>ຮອບ 2: 19:01 - 19:45",
+    location:"ຫຼິ້ນທີ່ <strong>ຊັ້ນ 1 – ໂຊນ C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
+    cta:"ຫຼິ້ນເພື່ອລຸ້ນແຈັກພອດ!"
+  },
+  ko:{
+    title:"해피 아워 잭팟",
+    subtitle:"진행 중 이벤트",
+    prize1:"1등 - <span class='highlight'>15,000 바트</span> (최소 베팅: 5,000 바트)",
+    prize2:"2등 - <span class='highlight'>10,000 바트</span> (최소 베팅: 3,000 바트)",
+    prize3:"3등 - <span class='highlight'>5,000 바트</span> (최소 베팅: 1,000 바트)",
+    schedule:"<strong>매주 금요일 시작</strong><br>1차: 18:01 - 18:45<br>2차: 19:01 - 19:45",
+    location:"플레이 장소: <strong>1층 – C 구역</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
+    cta:"플레이하고 잭팟을 잡으세요!"
+  }
 };
 
 /* ===== LANGUAGE SWITCH ===== */
