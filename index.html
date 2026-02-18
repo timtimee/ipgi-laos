@@ -320,6 +320,7 @@ title.textContent="Last Jackpot Hits";
 }
 }
 
+
 function renderJackpot(){
 const container=document.getElementById("jackpot-container");
 container.innerHTML="";
@@ -334,17 +335,31 @@ container.innerHTML+=`
 <div class="game visible">
 <h2>${formatGameName(gameKey)}</h2>
 <div class="levels">
+
 <div class="level">
 <strong>Level 1</strong>
-<div class="amount">${game.level1.toLocaleString()} THB</div>
-<div class="date">Updated: ${game.time||"--:--"}</div>
+<div class="amount">${Number(game.level1).toLocaleString()} THB</div>
+<div class="date">
+${
+currentMode==="current"
+? "Updated: " + (game.time || "--:--")
+: "Date: " + (game.level1_date || "--")
+}
+</div>
 </div>
 
 <div class="level">
 <strong>Level 2</strong>
-<div class="amount">${game.level2.toLocaleString()} THB</div>
-<div class="date">Updated: ${game.time||"--:--"}</div>
+<div class="amount">${Number(game.level2).toLocaleString()} THB</div>
+<div class="date">
+${
+currentMode==="current"
+? "Updated: " + (game.time || "--:--")
+: "Date: " + (game.level2_date || "--")
+}
 </div>
+</div>
+
 </div>
 </div>
 `;
