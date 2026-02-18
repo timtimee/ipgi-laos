@@ -342,19 +342,18 @@ else{el.textContent=target.toLocaleString()+" THB";}
 requestAnimationFrame(update);
 }
 
+
 function renderJackpot(){
 const container=document.getElementById("jackpot-container");
 container.innerHTML="";
 const games=jackpotData[currentMode];
 if(!games)return;
 
-let index=0;
-
 Object.keys(games).forEach(key=>{
 const game=games[key];
 
 container.insertAdjacentHTML("beforeend",`
-<div class="game reveal" style="transition-delay:${index * 0.2}s">
+<div class="game reveal">
 <h2>${formatGameName(key)}</h2>
 <div class="levels">
 <div class="level">
@@ -380,10 +379,16 @@ ${currentMode==="current"
 </div>
 </div>
 `);
-
-index++;
 });
 
+/* ===== SAFE STAGGER ===== */
+
+const cards=document.querySelectorAll(".game");
+cards.forEach((card,i)=>{
+card.style.transitionDelay = (i * 0.2) + "s";
+});
+
+/* ===== COUNTER + GLOW ===== */
 
 if(currentMode==="current"){
 document.querySelectorAll(".amount").forEach(el=>{
@@ -391,7 +396,6 @@ const target=parseInt(el.dataset.value);
 if(!isNaN(target)){
 animateCounter(el,target);
 
-/* Add glow after animation */
 setTimeout(()=>{
 el.classList.add("glow");
 },1500);
