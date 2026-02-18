@@ -329,6 +329,22 @@ element.textContent = targetValue.toLocaleString() + " THB";
 requestAnimationFrame(updateCounter);
 }
 
+/* Animate only in current mode */
+if(currentMode==="current"){
+document.querySelectorAll(".amount").forEach(el=>{
+let target=parseInt(el.dataset.value);
+if(!isNaN(target)){
+animateCounter(el,target);
+}
+});
+}else{
+document.querySelectorAll(".amount").forEach(el=>{
+let target=parseInt(el.dataset.value);
+el.textContent = Number(target).toLocaleString()+" THB";
+});
+}
+}
+
 
 function renderJackpot(){
 const container=document.getElementById("jackpot-container");
