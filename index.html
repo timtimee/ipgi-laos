@@ -303,6 +303,33 @@ title.textContent="Last Jackpot Hits";
 }
 }
 
+/* ===== COUNTER ANIMATION ===== */
+
+function animateCounter(element, targetValue){
+
+let start = 0;
+let duration = 1500;
+let startTime = null;
+
+function updateCounter(timestamp){
+if(!startTime) startTime = timestamp;
+let progress = timestamp - startTime;
+let percent = Math.min(progress / duration, 1);
+let value = Math.floor(percent * targetValue);
+
+element.textContent = value.toLocaleString() + " THB";
+
+if(progress < duration){
+requestAnimationFrame(updateCounter);
+}else{
+element.textContent = targetValue.toLocaleString() + " THB";
+}
+}
+
+requestAnimationFrame(updateCounter);
+}
+
+
 function renderJackpot(){
 const container=document.getElementById("jackpot-container");
 container.innerHTML="";
