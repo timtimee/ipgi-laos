@@ -239,14 +239,16 @@ hero.classList.add("fade");
 
 setTimeout(()=>{
 const t=translations[lang]||translations.en;
-event-title.innerHTML=t.title;
-event-subtitle.innerHTML=t.subtitle;
-prize1.innerHTML=t.prize1;
-prize2.innerHTML=t.prize2;
-prize3.innerHTML=t.prize3;
-schedule.innerHTML=t.schedule;
-location.innerHTML=t.location;
-cta-text.innerHTML=t.cta;
+
+document.getElementById("event-title").innerHTML=t.title;
+document.getElementById("event-subtitle").innerHTML=t.subtitle;
+document.getElementById("prize1").innerHTML=t.prize1;
+document.getElementById("prize2").innerHTML=t.prize2;
+document.getElementById("prize3").innerHTML=t.prize3;
+document.getElementById("schedule").innerHTML=t.schedule;
+document.getElementById("location").innerHTML=t.location;
+document.getElementById("cta-text").innerHTML=t.cta;
+
 hero.classList.remove("fade");
 },200);
 
@@ -265,24 +267,41 @@ jackpotData=data;
 currentMode=data.mode||"current";
 setActiveButton();
 renderJackpot();
+})
+.catch(err=>{
+console.log("JSON load error:",err);
 });
 
-btn-current.onclick=()=>{currentMode="current";setActiveButton();renderJackpot();}
-btn-last.onclick=()=>{currentMode="last";setActiveButton();renderJackpot();}
+document.getElementById("btn-current").onclick=()=>{
+currentMode="current";
+setActiveButton();
+renderJackpot();
+};
+
+document.getElementById("btn-last").onclick=()=>{
+currentMode="last";
+setActiveButton();
+renderJackpot();
+};
 
 function setActiveButton(){
-btn-current.classList.toggle("active",currentMode==="current");
-btn-last.classList.toggle("active",currentMode==="last");
+const btnCurrent=document.getElementById("btn-current");
+const btnLast=document.getElementById("btn-last");
+const title=document.getElementById("jackpot-title");
 
+btnCurrent.classList.toggle("active",currentMode==="current");
+btnLast.classList.toggle("active",currentMode==="last");
+
+if(currentMode==="current"){
 const d=new Date();
 const day=String(d.getDate()).padStart(2,'0');
 const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const month=months[d.getMonth()];
 const year=String(d.getFullYear()).slice(-2);
-
-jackpot-title.textContent=currentMode==="current"
-?`Current Jackpot as of ${day}-${month}-${year}`
-:"Last Jackpot Hits";
+title.textContent=`Current Jackpot as of ${day}-${month}-${year}`;
+}else{
+title.textContent="Last Jackpot Hits";
+}
 }
 
 function animateCounter(el,target){
@@ -300,13 +319,15 @@ requestAnimationFrame(update);
 }
 
 function renderJackpot(){
-jackpot-container.innerHTML="";
+const container=document.getElementById("jackpot-container");
+container.innerHTML="";
 const games=jackpotData[currentMode];
 if(!games)return;
 
 Object.keys(games).forEach(key=>{
 const game=games[key];
-jackpot-container.insertAdjacentHTML("beforeend",`
+
+container.insertAdjacentHTML("beforeend",`
 <div class="game">
 <h2>${formatGameName(key)}</h2>
 <div class="levels">
