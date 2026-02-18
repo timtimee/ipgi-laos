@@ -9,8 +9,14 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#0b0f1a;color:white;overflow-x:hidden;}
+body{
+background:#0b0f1a;
+color:white;
+overflow-x:hidden;
+overflow-y:auto;
+}
 
+/* NAVBAR */
 .navbar{
 position:fixed;
 top:0;
@@ -47,6 +53,7 @@ transform:scale(1.1);
 
 .lang-switch button:hover{background:gold;}
 
+/* HERO */
 .hero{
 padding:120px 10% 80px;
 text-align:center;
@@ -75,6 +82,7 @@ box-shadow:0 20px 60px rgba(0,0,0,0.6);
 .schedule{margin-top:25px;line-height:1.8;opacity:0.85;}
 .cta{margin-top:35px;font-size:1.25rem;color:#e6c15a;font-weight:600;}
 
+/* JACKPOT */
 .jackpot-section{
 padding:100px 10%;
 text-align:center;
@@ -123,6 +131,18 @@ background:#0b0f1a;
 font-size:0.9rem;
 }
 
+/* SCROLL REVEAL */
+.reveal{
+opacity:0;
+transform:translateY(60px);
+transition:all 0.8s ease;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+}
+
 @media(max-width:768px){
 .levels{flex-direction:column;}
 .hero h1{font-size:2.2rem;}
@@ -149,7 +169,7 @@ font-size:0.9rem;
 </div>
 </nav>
 
-<section class="hero" id="hero">
+<section class="hero reveal" id="hero">
 <h1 id="event-title"></h1>
 <h2 id="event-subtitle"></h2>
 
@@ -163,7 +183,7 @@ font-size:0.9rem;
 </div>
 </section>
 
-<section class="jackpot-section">
+<section class="jackpot-section reveal">
 <h1 id="jackpot-title"></h1>
 
 <div class="toggle-buttons">
@@ -233,13 +253,12 @@ const translations = {
   }
 };
 
+/* LANGUAGE */
 function setLanguage(lang,btn){
 const hero=document.getElementById("hero");
 hero.classList.add("fade");
-
 setTimeout(()=>{
 const t=translations[lang]||translations.en;
-
 document.getElementById("event-title").innerHTML=t.title;
 document.getElementById("event-subtitle").innerHTML=t.subtitle;
 document.getElementById("prize1").innerHTML=t.prize1;
@@ -248,28 +267,23 @@ document.getElementById("prize3").innerHTML=t.prize3;
 document.getElementById("schedule").innerHTML=t.schedule;
 document.getElementById("location").innerHTML=t.location;
 document.getElementById("cta-text").innerHTML=t.cta;
-
 hero.classList.remove("fade");
 },200);
-
 document.querySelectorAll(".lang-switch button").forEach(b=>b.classList.remove("active"));
 if(btn) btn.classList.add("active");
 }
-
 setLanguage("en",document.querySelector(".lang-switch button"));
 
+/* JACKPOT */
 let jackpotData={},currentMode="current";
 
-fetch("./data.json")
+fetch("data.json")
 .then(res=>res.json())
 .then(data=>{
 jackpotData=data;
 currentMode=data.mode||"current";
 setActiveButton();
 renderJackpot();
-})
-.catch(err=>{
-console.log("JSON load error:",err);
 });
 
 document.getElementById("btn-current").onclick=()=>{
@@ -277,7 +291,6 @@ currentMode="current";
 setActiveButton();
 renderJackpot();
 };
-
 document.getElementById("btn-last").onclick=()=>{
 currentMode="last";
 setActiveButton();
@@ -305,7 +318,7 @@ title.textContent="Last Jackpot Hits";
 }
 
 function animateCounter(el,target){
-let start=0,duration=1500,startTime=null;
+let duration=1500,startTime=null;
 function update(t){
 if(!startTime)startTime=t;
 let progress=t-startTime;
@@ -328,7 +341,7 @@ Object.keys(games).forEach(key=>{
 const game=games[key];
 
 container.insertAdjacentHTML("beforeend",`
-<div class="game">
+<div class="game reveal">
 <h2>${formatGameName(key)}</h2>
 <div class="levels">
 <div class="level">
@@ -357,7 +370,23 @@ const target=parseInt(el.dataset.value);
 el.textContent=Number(target).toLocaleString()+" THB";
 });
 }
+
+revealOnScroll();
 }
+
+/* SCROLL EFFECT */
+function revealOnScroll(){
+const reveals=document.querySelectorAll(".reveal");
+reveals.forEach(el=>{
+const windowHeight=window.innerHeight;
+const elementTop=el.getBoundingClientRect().top;
+if(elementTop < windowHeight - 100){
+el.classList.add("active");
+}
+});
+}
+window.addEventListener("scroll",revealOnScroll);
+window.addEventListener("load",revealOnScroll);
 
 function formatGameName(key){
 return key.replace(/([A-Z])/g," $1").replace(/^./,s=>s.toUpperCase());
