@@ -373,8 +373,28 @@ document.getElementById("btn-last").onclick = () => {
 };
 
 function setActiveButton(){
+
   document.getElementById("btn-current").classList.toggle("active", currentMode==="current");
   document.getElementById("btn-last").classList.toggle("active", currentMode==="last");
+
+  const titleElement = document.getElementById("jackpot-title");
+
+  if(currentMode === "current"){
+
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2,'0');
+
+    const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const month = monthNames[today.getMonth()];
+
+    const year = String(today.getFullYear()).slice(-2);
+
+    titleElement.textContent = `Current Jackpot as of ${day}-${month}-${year}`;
+
+  }else{
+    titleElement.textContent = "Last Jackpot Hits";
+  }
+}
 
   // keep title consistent
   document.getElementById("jackpot-title").textContent =
