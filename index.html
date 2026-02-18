@@ -49,9 +49,7 @@ color:black;
 transform:scale(1.1);
 }
 
-.lang-switch button:hover{
-background:gold;
-}
+.lang-switch button:hover{background:gold;}
 
 .hero{
 padding:120px 10% 80px;
@@ -81,22 +79,13 @@ border:1px solid rgba(230,193,90,0.25);
 border-radius:18px;
 padding:50px;
 backdrop-filter:blur(20px);
-box-shadow:
-0 20px 60px rgba(0,0,0,0.6),
-0 0 30px rgba(230,193,90,0.08);
-transition:0.4s ease;
+box-shadow:0 20px 60px rgba(0,0,0,0.6);
 }
 
-.event-box:hover{
-box-shadow:
-0 25px 70px rgba(0,0,0,0.8),
-0 0 45px rgba(230,193,90,0.15);
-}
-
-.prize{margin:12px 0;font-size:1.15rem;letter-spacing:0.5px;}
+.prize{margin:12px 0;font-size:1.15rem;}
 .highlight{color:#7fffd4;font-weight:600;}
 .schedule{margin-top:25px;line-height:1.8;opacity:0.85;}
-.cta{margin-top:35px;font-size:1.25rem;color:#e6c15a;font-weight:600;letter-spacing:1px;}
+.cta{margin-top:35px;font-size:1.25rem;color:#e6c15a;font-weight:600;}
 
 .jackpot-section{
 padding:100px 10%;
@@ -181,15 +170,6 @@ color:#aaa;
 margin-top:8px;
 }
 
-.gold-divider{
-height:1px;
-background:linear-gradient(to right,transparent,gold,transparent);
-margin:40px 0;
-animation:dividerGlow 3s infinite alternate;
-}
-
-@keyframes dividerGlow{from{opacity:0.3;}to{opacity:1;}}
-
 footer{
 padding:40px;
 text-align:center;
@@ -202,7 +182,6 @@ font-size:0.9rem;
 .levels{flex-direction:column;}
 .hero h1{font-size:2.2rem;}
 .event-box{padding:28px;}
-.toggle-buttons button{margin:8px 6px;}
 }
 </style>
 </head>
@@ -210,48 +189,45 @@ font-size:0.9rem;
 <body>
 
 <nav class="navbar">
-  <div class="logo">
-    <a href="https://www.indo.com.au" target="_blank">
-      <img src="https://indo.com.au/wp-content/uploads/2024/03/Group-3-1.png" alt="Company Logo">
-    </a>
-  </div>
+<div class="logo">
+<a href="https://www.indo.com.au" target="_blank">
+<img src="https://indo.com.au/wp-content/uploads/2024/03/Group-3-1.png">
+</a>
+</div>
 
-  <div class="lang-switch">
-    <button onclick="setLanguage('en',this)">🇬🇧</button>
-    <button onclick="setLanguage('th',this)">🇹🇭</button>
-    <button onclick="setLanguage('zh',this)">🇨🇳</button>
-    <button onclick="setLanguage('lo',this)">🇱🇦</button>
-    <button onclick="setLanguage('ko',this)">🇰🇷</button>
-  </div>
+<div class="lang-switch">
+<button onclick="setLanguage('en',this)">🇬🇧</button>
+<button onclick="setLanguage('th',this)">🇹🇭</button>
+<button onclick="setLanguage('zh',this)">🇨🇳</button>
+<button onclick="setLanguage('lo',this)">🇱🇦</button>
+<button onclick="setLanguage('ko',this)">🇰🇷</button>
+</div>
 </nav>
 
 <section class="hero" id="hero">
-  <h1 id="event-title"></h1>
-  <h2 id="event-subtitle"></h2>
+<h1 id="event-title"></h1>
+<h2 id="event-subtitle"></h2>
 
-  <div class="event-box">
-    <div class="prize" id="prize1"></div>
-    <div class="prize" id="prize2"></div>
-    <div class="prize" id="prize3"></div>
-
-    <div class="schedule" id="schedule"></div>
-
-    <div style="margin-top:25px; opacity:0.85; line-height:1.7;" id="location"></div>
-
-    <div class="cta" id="cta-text"></div>
-  </div>
+<div class="event-box">
+<div class="prize" id="prize1"></div>
+<div class="prize" id="prize2"></div>
+<div class="prize" id="prize3"></div>
+<div class="schedule" id="schedule"></div>
+<div style="margin-top:25px;opacity:0.85;" id="location"></div>
+<div class="cta" id="cta-text"></div>
+</div>
 </section>
 
 <section class="jackpot-section">
 
-  <h1 id="jackpot-title">Current Jackpot</h1>
+<h1 id="jackpot-title"></h1>
 
-  <div class="toggle-buttons">
-    <button id="btn-current" class="active">Current Jackpot</button>
-    <button id="btn-last">Last Jackpot Hits</button>
-  </div>
+<div class="toggle-buttons">
+<button id="btn-current" class="active">Current Jackpot</button>
+<button id="btn-last">Last Jackpot Hits</button>
+</div>
 
-  <div id="jackpot-container"></div>
+<div id="jackpot-container"></div>
 
 </section>
 
@@ -260,237 +236,125 @@ font-size:0.9rem;
 </footer>
 
 <script>
-/* =========================
-   LANGUAGE TRANSLATION
-========================= */
+
+/* ========= LANGUAGE ========= */
 
 const translations = {
-  en:{
-    title:"Happy Hour Jackpot",
-    subtitle:"On-Going Event",
-    prize1:"1st Prize - <span class='highlight'>15,000 THB</span> (min bet: 5,000 THB)",
-    prize2:"2nd Prize - <span class='highlight'>10,000 THB</span> (min bet: 3,000 THB)",
-    prize3:"3rd Prize - <span class='highlight'>5,000 THB</span> (min bet: 1,000 THB)",
-    schedule:"<strong>Starts every Friday</strong><br>1st Session: 18:01H - 18:45H<br>2nd Session: 19:01H - 19:45H",
-    location:"Play at <strong>First Floor – Zone C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
-    cta:"Play and chance to win a Jackpot!"
-  },
-  th:{
-    title:"แฮปปี้อาวร์แจ็คพอต",
-    subtitle:"กิจกรรมกำลังดำเนินอยู่",
-    prize1:"รางวัลที่ 1 - <span class='highlight'>15,000 บาท</span> (เดิมพันขั้นต่ำ: 5,000 บาท)",
-    prize2:"รางวัลที่ 2 - <span class='highlight'>10,000 บาท</span> (เดิมพันขั้นต่ำ: 3,000 บาท)",
-    prize3:"รางวัลที่ 3 - <span class='highlight'>5,000 บาท</span> (เดิมพันขั้นต่ำ: 1,000 บาท)",
-    schedule:"<strong>เริ่มทุกวันศุกร์</strong><br>รอบที่ 1: 18:01 - 18:45<br>รอบที่ 2: 19:01 - 19:45",
-    location:"เล่นที่ <strong>ชั้น 1 – โซน C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
-    cta:"ร่วมสนุกและลุ้นรับแจ็คพอต!"
-  },
-  zh:{
-    title:"欢乐时光累积大奖",
-    subtitle:"正在进行中",
-    prize1:"一等奖 - <span class='highlight'>15,000 泰铢</span>（最低投注：5,000 泰铢）",
-    prize2:"二等奖 - <span class='highlight'>10,000 泰铢</span>（最低投注：3,000 泰铢）",
-    prize3:"三等奖 - <span class='highlight'>5,000 泰铢</span>（最低投注：1,000 泰铢）",
-    schedule:"<strong>每周五开始</strong><br>第一场：18:01 - 18:45<br>第二场：19:01 - 19:45",
-    location:"地点：<strong>一楼 C 区</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
-    cta:"参与游戏，赢取大奖！"
-  },
-  lo:{
-    title:"ແຈັກພອດ Happy Hour",
-    subtitle:"ກຳລັງຈັດກິດຈະກຳ",
-    prize1:"ລາງວັນທີ 1 - <span class='highlight'>15,000 ບາດ</span> (ເບດຂັ້ນຕ່ຳ: 5,000 ບາດ)",
-    prize2:"ລາງວັນທີ 2 - <span class='highlight'>10,000 ບາດ</span> (ເບດຂັ້ນຕ່ຳ: 3,000 ບາດ)",
-    prize3:"ລາງວັນທີ 3 - <span class='highlight'>5,000 ບາດ</span> (ເບດຂັ້ນຕ່ຳ: 1,000 ບາດ)",
-    schedule:"<strong>ເລີ່ມທຸກວັນສຸກ</strong><br>ຮອບ 1: 18:01 - 18:45<br>ຮອບ 2: 19:01 - 19:45",
-    location:"ຫຼິ້ນທີ່ <strong>ຊັ້ນ 1 – ໂຊນ C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
-    cta:"ຫຼິ້ນເພື່ອລຸ້ນແຈັກພອດ!"
-  },
-  ko:{
-    title:"해피 아워 잭팟",
-    subtitle:"진행 중 이벤트",
-    prize1:"1등 - <span class='highlight'>15,000 바트</span> (최소 베팅: 5,000 바트)",
-    prize2:"2등 - <span class='highlight'>10,000 바트</span> (최소 베팅: 3,000 바트)",
-    prize3:"3등 - <span class='highlight'>5,000 바트</span> (최소 베팅: 1,000 바트)",
-    schedule:"<strong>매주 금요일 시작</strong><br>1차: 18:01 - 18:45<br>2차: 19:01 - 19:45",
-    location:"플레이 장소: <strong>1층 – C 구역</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
-    cta:"플레이하고 잭팟을 잡으세요!"
-  }
+en:{
+title:"Happy Hour Jackpot",
+subtitle:"On-Going Event",
+prize1:"1st Prize - <span class='highlight'>15,000 THB</span> (min bet: 5,000 THB)",
+prize2:"2nd Prize - <span class='highlight'>10,000 THB</span> (min bet: 3,000 THB)",
+prize3:"3rd Prize - <span class='highlight'>5,000 THB</span> (min bet: 1,000 THB)",
+schedule:"<strong>Starts every Friday</strong><br>1st Session: 18:01H - 18:45H<br>2nd Session: 19:01H - 19:45H",
+location:"Play at <strong>First Floor – Zone C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
+cta:"Play and chance to win a Jackpot!"
+}
 };
 
-function setLanguage(lang, btn){
-  const hero = document.getElementById("hero");
-  hero.classList.add("fade");
+function setLanguage(lang,btn){
+const hero=document.getElementById("hero");
+hero.classList.add("fade");
 
-  setTimeout(()=>{
-    const t = translations[lang] || translations.en;
-    document.getElementById("event-title").innerHTML = t.title;
-    document.getElementById("event-subtitle").innerHTML = t.subtitle;
-    document.getElementById("prize1").innerHTML = t.prize1;
-    document.getElementById("prize2").innerHTML = t.prize2;
-    document.getElementById("prize3").innerHTML = t.prize3;
-    document.getElementById("schedule").innerHTML = t.schedule;
-    document.getElementById("location").innerHTML = t.location;
-    document.getElementById("cta-text").innerHTML = t.cta;
-    hero.classList.remove("fade");
-  }, 200);
+setTimeout(()=>{
+const t=translations[lang];
+document.getElementById("event-title").innerHTML=t.title;
+document.getElementById("event-subtitle").innerHTML=t.subtitle;
+document.getElementById("prize1").innerHTML=t.prize1;
+document.getElementById("prize2").innerHTML=t.prize2;
+document.getElementById("prize3").innerHTML=t.prize3;
+document.getElementById("schedule").innerHTML=t.schedule;
+document.getElementById("location").innerHTML=t.location;
+document.getElementById("cta-text").innerHTML=t.cta;
+hero.classList.remove("fade");
+},200);
 
-  document.querySelectorAll(".lang-switch button").forEach(b=>b.classList.remove("active"));
-  if(btn) btn.classList.add("active");
+document.querySelectorAll(".lang-switch button").forEach(b=>b.classList.remove("active"));
+if(btn) btn.classList.add("active");
 }
 
-// default language
-setLanguage("en", document.querySelector(".lang-switch button"));
+setLanguage("en",document.querySelector(".lang-switch button"));
 
-/* =========================
-   JACKPOT RENDER (RESTORED)
-========================= */
+/* ========= JACKPOT ========= */
 
-let jackpotData = {};
-let currentMode = "current";
+let jackpotData={};
+let currentMode="current";
 
 fetch("./data.json")
-  .then(res => res.json())
-  .then(data => {
-    jackpotData = data;
-    currentMode = data.mode || "current";
-    setActiveButton();
-    renderJackpot();
-  })
-  .catch(err => {
-    console.error("Failed to load data.json", err);
-  });
+.then(res=>res.json())
+.then(data=>{
+jackpotData=data;
+currentMode=data.mode||"current";
+setActiveButton();
+renderJackpot();
+});
 
-document.getElementById("btn-current").onclick = () => {
-  currentMode = "current";
-  setActiveButton();
-  renderJackpot();
+document.getElementById("btn-current").onclick=()=>{
+currentMode="current";
+setActiveButton();
+renderJackpot();
 };
 
-document.getElementById("btn-last").onclick = () => {
-  currentMode = "last";
-  setActiveButton();
-  renderJackpot();
+document.getElementById("btn-last").onclick=()=>{
+currentMode="last";
+setActiveButton();
+renderJackpot();
 };
 
 function setActiveButton(){
 
-  document.getElementById("btn-current").classList.toggle("active", currentMode==="current");
-  document.getElementById("btn-last").classList.toggle("active", currentMode==="last");
+document.getElementById("btn-current").classList.toggle("active",currentMode==="current");
+document.getElementById("btn-last").classList.toggle("active",currentMode==="last");
 
-  const titleElement = document.getElementById("jackpot-title");
+const title=document.getElementById("jackpot-title");
 
-  if(currentMode === "current"){
-
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2,'0');
-
-    const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    const month = monthNames[today.getMonth()];
-
-    const year = String(today.getFullYear()).slice(-2);
-
-    titleElement.textContent = `Current Jackpot as of ${day}-${month}-${year}`;
-
-  }else{
-    titleElement.textContent = "Last Jackpot Hits";
-  }
+if(currentMode==="current"){
+const today=new Date();
+const day=String(today.getDate()).padStart(2,'0');
+const monthNames=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const month=monthNames[today.getMonth()];
+const year=String(today.getFullYear()).slice(-2);
+title.textContent=`Current Jackpot as of ${day}-${month}-${year}`;
+}else{
+title.textContent="Last Jackpot Hits";
 }
-
-  // keep title consistent
-  document.getElementById("jackpot-title").textContent =
-    currentMode === "current" ? "Current Jackpot" : "Last Jackpot Hits";
 }
 
 function renderJackpot(){
-  const container = document.getElementById("jackpot-container");
-  container.innerHTML = "";
+const container=document.getElementById("jackpot-container");
+container.innerHTML="";
 
-  const games = jackpotData[currentMode];
-  if(!games){
-    container.innerHTML = "<p style='opacity:0.8;'>No jackpot data found.</p>";
-    return;
-  }
+const games=jackpotData[currentMode];
+if(!games)return;
 
-  Object.keys(games).forEach(gameKey => {
-    const game = games[gameKey];
+Object.keys(games).forEach(gameKey=>{
+const game=games[gameKey];
 
-    container.innerHTML += `
-      <div class="game">
-        <h2>${formatGameName(gameKey)}</h2>
-        <div class="levels">
-          <div class="level">
-            <strong>Level 1</strong>
-            <div class="amount" data-target="${game.level1}">0</div>
-            <div class="date">
-              ${
-                currentMode === "current"
-                  ? "Updated: " + (game.time || "--:--")
-                  : "Date: " + (game.level1_date || "--")
-              }
-            </div>
-          </div>
+container.innerHTML+=`
+<div class="game visible">
+<h2>${formatGameName(gameKey)}</h2>
+<div class="levels">
+<div class="level">
+<strong>Level 1</strong>
+<div class="amount">${game.level1.toLocaleString()} THB</div>
+<div class="date">Updated: ${game.time||"--:--"}</div>
+</div>
 
-          <div class="level">
-            <strong>Level 2</strong>
-            <div class="amount" data-target="${game.level2}">0</div>
-            <div class="date">
-              ${
-                currentMode === "current"
-                  ? "Updated: " + (game.time || "--:--")
-                  : "Date: " + (game.level2_date || "--")
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="gold-divider"></div>
-    `;
-  });
-
-  animateCounters();
-  revealOnScroll();
+<div class="level">
+<strong>Level 2</strong>
+<div class="amount">${game.level2.toLocaleString()} THB</div>
+<div class="date">Updated: ${game.time||"--:--"}</div>
+</div>
+</div>
+</div>
+`;
+});
 }
 
 function formatGameName(key){
-  return key.replace(/([A-Z])/g," $1").replace(/^./,str=>str.toUpperCase());
+return key.replace(/([A-Z])/g," $1").replace(/^./,str=>str.toUpperCase());
 }
 
-function animateCounters(){
-  document.querySelectorAll('.amount').forEach(counter=>{
-    const target = parseInt(counter.dataset.target || "0", 10);
-    let count = 0;
-    const increment = target / 120;
-
-    counter.classList.remove("pulse");
-    counter.classList.add("shimmer");
-
-    function update(){
-      count += increment;
-      if(count < target){
-        counter.textContent = Math.floor(count).toLocaleString()+" THB";
-        requestAnimationFrame(update);
-      }else{
-        counter.textContent = target.toLocaleString()+" THB";
-        counter.classList.remove("shimmer");
-        counter.classList.add("pulse");
-      }
-    }
-    update();
-  });
-}
-
-function revealOnScroll(){
-  const games = document.querySelectorAll('.game');
-  const observer = new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add('visible');
-      }
-    });
-  },{threshold:0.3});
-
-  games.forEach(game=>observer.observe(game));
-}
 </script>
 
 </body>
