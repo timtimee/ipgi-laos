@@ -329,6 +329,52 @@ element.textContent = targetValue.toLocaleString() + " THB";
 requestAnimationFrame(updateCounter);
 }
 
+
+/* ===== RENDER JACKPOT ===== */
+
+function renderJackpot(){
+const container=document.getElementById("jackpot-container");
+container.innerHTML="";
+const games=jackpotData[currentMode];
+if(!games)return;
+
+Object.keys(games).forEach(gameKey=>{
+const game=games[gameKey];
+
+const gameHTML=`
+<div class="game">
+<h2>${formatGameName(gameKey)}</h2>
+<div class="levels">
+<div class="level">
+<strong>Level 1</strong>
+<div class="amount" data-value="${game.level1}">0 THB</div>
+<div class="date">
+${
+currentMode==="current"
+? "Updated: "+(game.time||"--:--")
+: "Date: "+(game.level1_date||"--")
+}
+</div>
+</div>
+<div class="level">
+<strong>Level 2</strong>
+<div class="amount" data-value="${game.level2}">0 THB</div>
+<div class="date">
+${
+currentMode==="current"
+? "Updated: "+(game.time||"--:--")
+: "Date: "+(game.level2_date||"--")
+}
+</div>
+</div>
+</div>
+</div>
+`;
+
+container.insertAdjacentHTML("beforeend",gameHTML);
+});
+
+
 /* Animate only in current mode */
 if(currentMode==="current"){
 document.querySelectorAll(".amount").forEach(el=>{
@@ -346,51 +392,7 @@ el.textContent = Number(target).toLocaleString()+" THB";
 }
 
 
-function renderJackpot(){
-const container=document.getElementById("jackpot-container");
-container.innerHTML="";
-const games=jackpotData[currentMode];
-if(!games)return;
-
-Object.keys(games).forEach(gameKey=>{
-const game=games[gameKey];
-
-container.innerHTML+=`
-<div class="game">
-<h2>${formatGameName(gameKey)}</h2>
-<div class="levels">
-<div class="level">
-<strong>Level 1</strong>
-<div class="amount">${Number(game.level1).toLocaleString()} THB</div>
-<div class="date">
-${
-currentMode==="current"
-? "Updated: "+(game.time||"--:--")
-: "Date: "+(game.level1_date||"--")
-}
-</div>
-</div>
-<div class="level">
-<strong>Level 2</strong>
-<div class="amount">${Number(game.level2).toLocaleString()} THB</div>
-<div class="date">
-${
-currentMode==="current"
-? "Updated: "+(game.time||"--:--")
-: "Date: "+(game.level2_date||"--")
-}
-</div>
-</div>
-</div>
-</div>
-`;
-});
-}
-
 function formatGameName(key){
 return key.replace(/([A-Z])/g," $1").replace(/^./,str=>str.toUpperCase());
-}
-
-</script>
 </body>
 </html>
