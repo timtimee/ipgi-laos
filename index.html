@@ -233,22 +233,20 @@ const translations = {
   }
 };
 
-/* ===== LANGUAGE SWITCH ===== */
-
 function setLanguage(lang,btn){
 const hero=document.getElementById("hero");
 hero.classList.add("fade");
 
 setTimeout(()=>{
 const t=translations[lang]||translations.en;
-document.getElementById("event-title").innerHTML=t.title;
-document.getElementById("event-subtitle").innerHTML=t.subtitle;
-document.getElementById("prize1").innerHTML=t.prize1;
-document.getElementById("prize2").innerHTML=t.prize2;
-document.getElementById("prize3").innerHTML=t.prize3;
-document.getElementById("schedule").innerHTML=t.schedule;
-document.getElementById("location").innerHTML=t.location;
-document.getElementById("cta-text").innerHTML=t.cta;
+event-title.innerHTML=t.title;
+event-subtitle.innerHTML=t.subtitle;
+prize1.innerHTML=t.prize1;
+prize2.innerHTML=t.prize2;
+prize3.innerHTML=t.prize3;
+schedule.innerHTML=t.schedule;
+location.innerHTML=t.location;
+cta-text.innerHTML=t.cta;
 hero.classList.remove("fade");
 },200);
 
@@ -258,10 +256,7 @@ if(btn) btn.classList.add("active");
 
 setLanguage("en",document.querySelector(".lang-switch button"));
 
-/* ===== JACKPOT LOGIC ===== */
-
-let jackpotData={};
-let currentMode="current";
+let jackpotData={},currentMode="current";
 
 fetch("./data.json")
 .then(res=>res.json())
@@ -272,114 +267,81 @@ setActiveButton();
 renderJackpot();
 });
 
-document.getElementById("btn-current").onclick=()=>{
-currentMode="current";
-setActiveButton();
-renderJackpot();
-};
-
-document.getElementById("btn-last").onclick=()=>{
-currentMode="last";
-setActiveButton();
-renderJackpot();
-};
+btn-current.onclick=()=>{currentMode="current";setActiveButton();renderJackpot();}
+btn-last.onclick=()=>{currentMode="last";setActiveButton();renderJackpot();}
 
 function setActiveButton(){
+btn-current.classList.toggle("active",currentMode==="current");
+btn-last.classList.toggle("active",currentMode==="last");
 
-document.getElementById("btn-current").classList.toggle("active",currentMode==="current");
-document.getElementById("btn-last").classList.toggle("active",currentMode==="last");
-
-const title=document.getElementById("jackpot-title");
-
-if(currentMode==="current"){
 const d=new Date();
 const day=String(d.getDate()).padStart(2,'0');
 const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const month=months[d.getMonth()];
 const year=String(d.getFullYear()).slice(-2);
-title.textContent=`Current Jackpot as of ${day}-${month}-${year}`;
-}else{
-title.textContent="Last Jackpot Hits";
-}
-}
 
-/* ===== COUNTER ANIMATION ===== */
-
-function animateCounter(element, targetValue){
-
-let start = 0;
-let duration = 1500;
-let startTime = null;
-
-function updateCounter(timestamp){
-if(!startTime) startTime = timestamp;
-let progress = timestamp - startTime;
-let percent = Math.min(progress / duration, 1);
-let value = Math.floor(percent * targetValue);
-
-element.textContent = value.toLocaleString() + " THB";
-
-if(progress < duration){
-requestAnimationFrame(updateCounter);
-}else{
-element.textContent = targetValue.toLocaleString() + " THB";
-}
+jackpot-title.textContent=currentMode==="current"
+?`Current Jackpot as of ${day}-${month}-${year}`
+:"Last Jackpot Hits";
 }
 
-requestAnimationFrame(updateCounter);
+function animateCounter(el,target){
+let start=0,duration=1500,startTime=null;
+function update(t){
+if(!startTime)startTime=t;
+let progress=t-startTime;
+let percent=Math.min(progress/duration,1);
+let value=Math.floor(percent*target);
+el.textContent=value.toLocaleString()+" THB";
+if(progress<duration){requestAnimationFrame(update);}
+else{el.textContent=target.toLocaleString()+" THB";}
 }
-
-
-/* ===== RENDER JACKPOT ===== */
+requestAnimationFrame(update);
+}
 
 function renderJackpot(){
-const container=document.getElementById("jackpot-container");
-container.innerHTML="";
+jackpot-container.innerHTML="";
 const games=jackpotData[currentMode];
 if(!games)return;
 
-Object.keys(games).forEach(gameKey=>{
-const game=games[gameKey];
-
-container.innerHTML+=`
+Object.keys(games).forEach(key=>{
+const game=games[key];
+jackpot-container.insertAdjacentHTML("beforeend",`
 <div class="game">
-<h2>${formatGameName(gameKey)}</h2>
+<h2>${formatGameName(key)}</h2>
 <div class="levels">
 <div class="level">
 <strong>Level 1</strong>
-<div class="amount">${Number(game.level1).toLocaleString()} THB</div>
-<div class="date">
-${
-currentMode==="current"
-? "Updated: "+(game.time||"--:--")
-: "Date: "+(game.level1_date||"--")
-}
-</div>
+<div class="amount" data-value="${game.level1}">0 THB</div>
+<div class="date">${currentMode==="current"?"Updated: "+(game.time||"--:--"):"Date: "+(game.level1_date||"--")}</div>
 </div>
 <div class="level">
 <strong>Level 2</strong>
-<div class="amount">${Number(game.level2).toLocaleString()} THB</div>
-<div class="date">
-${
-currentMode==="current"
-? "Updated: "+(game.time||"--:--")
-: "Date: "+(game.level2_date||"--")
-}
+<div class="amount" data-value="${game.level2}">0 THB</div>
+<div class="date">${currentMode==="current"?"Updated: "+(game.time||"--:--"):"Date: "+(game.level2_date||"--")}</div>
 </div>
 </div>
 </div>
-</div>
-`;
+`);
+});
+
+if(currentMode==="current"){
+document.querySelectorAll(".amount").forEach(el=>{
+const target=parseInt(el.dataset.value);
+if(!isNaN(target))animateCounter(el,target);
+});
+}else{
+document.querySelectorAll(".amount").forEach(el=>{
+const target=parseInt(el.dataset.value);
+el.textContent=Number(target).toLocaleString()+" THB";
 });
 }
-
-function formatGameName(key){
-return key.replace(/([A-Z])/g," $1").replace(/^./,str=>str.toUpperCase());
 }
 
-
-
 function formatGameName(key){
-return key.replace(/([A-Z])/g," $1").replace(/^./,str=>str.toUpperCase());
+return key.replace(/([A-Z])/g," $1").replace(/^./,s=>s.toUpperCase());
+}
+
+</script>
 </body>
 </html>
