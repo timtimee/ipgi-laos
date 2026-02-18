@@ -16,6 +16,17 @@ overflow-x:hidden;
 overflow-y:auto;
 }
 
+/* Jackpot Glow Pulse */
+@keyframes glowPulse {
+0% { text-shadow: 0 0 5px rgba(255,215,0,0.4); }
+50% { text-shadow: 0 0 18px rgba(255,215,0,0.9); }
+100% { text-shadow: 0 0 5px rgba(255,215,0,0.4); }
+}
+
+.amount.glow {
+animation: glowPulse 2.2s infinite ease-in-out;
+}
+
 /* NAVBAR */
 .navbar{
 position:fixed;
@@ -337,27 +348,65 @@ container.innerHTML="";
 const games=jackpotData[currentMode];
 if(!games)return;
 
+let index=0;
+
 Object.keys(games).forEach(key=>{
 const game=games[key];
 
 container.insertAdjacentHTML("beforeend",`
-<div class="game reveal">
+<div class="game reveal" style="transition-delay:${index * 0.2}s">
 <h2>${formatGameName(key)}</h2>
 <div class="levels">
 <div class="level">
 <strong>Level 1</strong>
 <div class="amount" data-value="${game.level1}">0 THB</div>
-<div class="date">${currentMode==="current"?"Updated: "+(game.time||"--:--"):"Date: "+(game.level1_date||"--")}</div>
+<div class="date">
+${currentMode==="current"
+? "Updated: "+(game.time||"--:--")
+: "Date: "+(game.level1_date||"--")}
 </div>
+</div>
+
 <div class="level">
 <strong>Level 2</strong>
 <div class="amount" data-value="${game.level2}">0 THB</div>
-<div class="date">${currentMode==="current"?"Updated: "+(game.time||"--:--"):"Date: "+(game.level2_date||"--")}</div>
+<div class="date">
+${currentMode==="current"
+? "Updated: "+(game.time||"--:--")
+: "Date: "+(game.level2_date||"--")}
 </div>
+</div>
+
 </div>
 </div>
 `);
+
+index++;
 });
+
+
+if(currentMode==="current"){
+document.querySelectorAll(".amount").forEach(el=>{
+const target=parseInt(el.dataset.value);
+if(!isNaN(target)){
+animateCounter(el,target);
+
+/* Add glow after animation */
+setTimeout(()=>{
+el.classList.add("glow");
+},1500);
+}
+});
+}else{
+document.querySelectorAll(".amount").forEach(el=>{
+const target=parseInt(el.dataset.value);
+el.textContent=Number(target).toLocaleString()+" THB";
+el.classList.remove("glow");
+});
+}
+
+revealOnScroll();
+}
 
 if(currentMode==="current"){
 document.querySelectorAll(".amount").forEach(el=>{
