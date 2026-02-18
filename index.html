@@ -344,84 +344,86 @@ requestAnimationFrame(update);
 
 
 function renderJackpot(){
-const container=document.getElementById("jackpot-container");
+
+var container=document.getElementById("jackpot-container");
 container.innerHTML="";
-const games=jackpotData[currentMode];
-if(!games)return;
+var games=jackpotData[currentMode];
+if(!games){ return; }
 
-Object.keys(games).forEach(key=>{
-const game=games[key];
+var keys=Object.keys(games);
 
-container.insertAdjacentHTML("beforeend",`
-<div class="game reveal">
-<h2>${formatGameName(key)}</h2>
-<div class="levels">
-<div class="level">
-<strong>Level 1</strong>
-<div class="amount" data-value="${game.level1}">0 THB</div>
-<div class="date">
-${currentMode==="current"
+for(var i=0;i<keys.length;i++){
+
+var key=keys[i];
+var game=games[key];
+
+var gameDiv=document.createElement("div");
+gameDiv.className="game reveal";
+
+gameDiv.innerHTML =
+"<h2>"+formatGameName(key)+"</h2>"+
+"<div class='levels'>"+
+"<div class='level'>"+
+"<strong>Level 1</strong>"+
+"<div class='amount' data-value='"+game.level1+"'>0 THB</div>"+
+"<div class='date'>"+
+(currentMode==="current"
 ? "Updated: "+(game.time||"--:--")
-: "Date: "+(game.level1_date||"--")}
-</div>
-</div>
-
-<div class="level">
-<strong>Level 2</strong>
-<div class="amount" data-value="${game.level2}">0 THB</div>
-<div class="date">
-${currentMode==="current"
+: "Date: "+(game.level1_date||"--"))+
+"</div>"+
+"</div>"+
+"<div class='level'>"+
+"<strong>Level 2</strong>"+
+"<div class='amount' data-value='"+game.level2+"'>0 THB</div>"+
+"<div class='date'>"+
+(currentMode==="current"
 ? "Updated: "+(game.time||"--:--")
-: "Date: "+(game.level2_date||"--")}
-</div>
-</div>
+: "Date: "+(game.level2_date||"--"))+
+"</div>"+
+"</div>"+
+"</div>";
 
-</div>
-</div>
-`);
-});
+container.appendChild(gameDiv);
+}
 
-/* ===== SAFE STAGGER ===== */
+/* SAFE STAGGER */
+var cards=document.querySelectorAll(".game");
+for(var j=0;j<cards.length;j++){
+cards[j].style.transitionDelay=(j*0.2)+"s";
+}
 
-const cards=document.querySelectorAll(".game");
-cards.forEach((card,i)=>{
-card.style.transitionDelay = (i * 0.2) + "s";
-});
-
-/* ===== COUNTER + GLOW ===== */
-
+/* COUNTER + GLOW */
 if(currentMode==="current"){
-document.querySelectorAll(".amount").forEach(el=>{
-const target=parseInt(el.dataset.value);
+
+var amounts=document.querySelectorAll(".amount");
+
+for(var k=0;k<amounts.length;k++){
+
+var el=amounts[k];
+var target=parseInt(el.getAttribute("data-value"));
+
 if(!isNaN(target)){
 animateCounter(el,target);
 
-setTimeout(()=>{
-el.classList.add("glow");
+(function(element){
+setTimeout(function(){
+element.classList.add("glow");
 },1500);
+})(el);
 }
-});
-}else{
-document.querySelectorAll(".amount").forEach(el=>{
-const target=parseInt(el.dataset.value);
-el.textContent=Number(target).toLocaleString()+" THB";
-el.classList.remove("glow");
-});
 }
 
-revealOnScroll();
+}else{
+
+var amountsStatic=document.querySelectorAll(".amount");
+
+for(var x=0;x<amountsStatic.length;x++){
+var el2=amountsStatic[x];
+var target2=parseInt(el2.getAttribute("data-value"));
+el2.textContent=Number(target2).toLocaleString()+" THB";
+el2.classList.remove("glow");
 }
 
-if(currentMode==="current"){
-document.querySelectorAll(".amount").forEach(el=>{
-const target=parseInt(el.dataset.value);
-if(!isNaN(target))animateCounter(el,target);
-});
-}else{
-document.querySelectorAll(".amount").forEach(el=>{
-const target=parseInt(el.dataset.value);
-el.textContent=Number(target).toLocaleString()+" THB";
-});
 }
 
 revealOnScroll();
