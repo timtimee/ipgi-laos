@@ -141,7 +141,6 @@ font-weight:700;
 
 /* ===== JACKPOT SECTION ===== */
 .jackpot-section{
-border-top:3px solid rgba(255,215,0,0.4);
 position:relative;
 z-index:2;
 padding:80px 8%;
@@ -149,6 +148,24 @@ text-align:center;
 background:
 linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
 url("images/cny-bg.webp") center/cover no-repeat;
+}
+
+.jackpot-section::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:3px;
+background:linear-gradient(
+to right,
+transparent,
+rgba(255,215,0,0.8),
+rgba(255,215,0,1),
+rgba(255,215,0,0.8),
+transparent
+);
+box-shadow:0 0 12px rgba(255,215,0,0.6);
 }
 
 #jackpot-title{
