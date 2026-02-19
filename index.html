@@ -94,6 +94,7 @@ background-size:cover;
 background-position:center;
 background-repeat:no-repeat;
 }
+
 @keyframes fireGlow{
 0%{box-shadow:0 0 0 rgba(255,215,0,0);}
 50%{box-shadow:0 0 60px rgba(255,215,0,.35);}
@@ -140,11 +141,14 @@ font-weight:700;
 
 /* ===== JACKPOT SECTION ===== */
 .jackpot-section{
+border-top:3px solid rgba(255,215,0,0.4);
 position:relative;
 z-index:2;
 padding:80px 8%;
 text-align:center;
-background:#2b0000;
+background:
+linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
+url("images/cny-bg.webp") center/cover no-repeat;
 }
 
 #jackpot-title{
@@ -216,9 +220,9 @@ margin:12px 0;
 
 /* GOLD GLOW */
 @keyframes goldPulse{
-0%{text-shadow:0 0 6px rgba(255,215,0,0.5);}
-50%{text-shadow:0 0 25px rgba(255,215,0,1);}
-100%{text-shadow:0 0 6px rgba(255,215,0,0.5);}
+0%{text-shadow:0 0 8px rgba(255,215,0,0.5);}
+50%{text-shadow:0 0 30px rgba(255,215,0,1),0 0 60px rgba(255,180,0,0.6);}
+100%{text-shadow:0 0 8px rgba(255,215,0,0.5);}
 }
 
 .amount.glow{
