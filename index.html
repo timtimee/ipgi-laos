@@ -8,158 +8,258 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
 body{
-background:#0b0f1a;
-color:white;
+background:radial-gradient(circle at top,#8b0000,#3a0000 60%,#1a0000);
+color:#fff5e6;
 overflow-x:hidden;
-overflow-y:auto;
 }
 
-/* Jackpot Glow Pulse */
-@keyframes glowPulse {
-0% { text-shadow: 0 0 5px rgba(255,215,0,0.4); }
-50% { text-shadow: 0 0 18px rgba(255,215,0,0.9); }
-100% { text-shadow: 0 0 5px rgba(255,215,0,0.4); }
+/* ===== LANTERNS (NON-BREAKING) ===== */
+.lantern{
+position:fixed;
+top:-120px;
+font-size:38px;
+opacity:.6;
+pointer-events:none;
+z-index:1;
+animation:floatLantern linear infinite;
 }
 
-.amount.glow {
-animation: glowPulse 2.2s infinite ease-in-out;
+@keyframes floatLantern{
+0%{transform:translateY(0);}
+100%{transform:translateY(130vh);}
 }
 
-/* NAVBAR */
+/* ===== NAVBAR ===== */
 .navbar{
 position:fixed;
 top:0;
 left:0;
 width:100%;
-padding:12px 8%;
+height:70px;
+padding:0 6%;
 display:flex;
 align-items:center;
-background:rgba(0,0,0,0.85);
-backdrop-filter:blur(10px);
-border-bottom:1px solid rgba(255,215,0,0.2);
+justify-content:space-between;
+background:#7a0000;
+border-bottom:2px solid gold;
 z-index:1000;
 }
 
-.logo img{height:42px;}
+.logo img{
+height:48px;
+max-width:160px;
+object-fit:contain;
+}
 
-.lang-switch{margin-left:auto;display:flex;gap:8px;}
+.lang-switch{
+display:flex;
+gap:8px;
+}
 
 .lang-switch button{
-background:transparent;
 border:1px solid gold;
+background:transparent;
+color:gold;
 border-radius:50%;
 padding:6px 10px;
+font-size:16px;
 cursor:pointer;
-font-size:18px;
-transition:0.3s;
+transition:.3s;
 }
 
 .lang-switch button.active{
 background:gold;
-color:black;
+color:#7a0000;
 transform:scale(1.1);
 }
 
-.lang-switch button:hover{background:gold;}
-
-/* HERO */
+/* ===== HERO ===== */
 .hero{
-padding:120px 10% 80px;
+position:relative;
+z-index:2;
+padding:150px 8% 80px;
 text-align:center;
-background:linear-gradient(135deg,#111827,#1f2937);
-transition:opacity 0.3s ease;
+animation:fireGlow 5s infinite;
 }
 
-.hero.fade{opacity:0;}
+@keyframes fireGlow{
+0%{box-shadow:0 0 0 rgba(255,215,0,0);}
+50%{box-shadow:0 0 60px rgba(255,215,0,.35);}
+100%{box-shadow:0 0 0 rgba(255,215,0,0);}
+}
 
-.hero h1{font-size:3rem;color:#ffd700;margin-bottom:20px;}
-.hero h2{color:#00ffcc;margin-bottom:30px;}
+.hero h1{
+font-size:2.8rem;
+color:gold;
+margin-bottom:12px;
+}
 
+.hero h2{
+color:#ffd700;
+margin-bottom:15px;
+}
+
+.horse-badge{
+display:inline-block;
+background:linear-gradient(45deg,gold,#ffcc00);
+color:#7a0000;
+padding:8px 22px;
+border-radius:25px;
+font-weight:700;
+margin-bottom:30px;
+box-shadow:0 0 20px rgba(255,215,0,0.4);
+}
+
+/* EVENT BOX */
 .event-box{
 max-width:900px;
-margin:auto;
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(230,193,90,0.25);
+margin:0 auto;
+background:rgba(0,0,0,0.6);
+border:2px solid gold;
 border-radius:18px;
-padding:50px;
-backdrop-filter:blur(20px);
-box-shadow:0 20px 60px rgba(0,0,0,0.6);
+padding:40px;
+box-shadow:0 0 25px rgba(255,215,0,0.3);
 }
 
-.prize{margin:12px 0;font-size:1.15rem;}
-.highlight{color:#7fffd4;font-weight:600;}
-.schedule{margin-top:25px;line-height:1.8;opacity:0.85;}
-.cta{margin-top:35px;font-size:1.25rem;color:#e6c15a;font-weight:600;}
+.highlight{
+color:gold;
+font-weight:700;
+}
 
-/* JACKPOT */
+/* ===== JACKPOT SECTION ===== */
 .jackpot-section{
-padding:100px 10%;
+position:relative;
+z-index:2;
+padding:80px 8%;
 text-align:center;
-background:#141a2e;
+background:#2b0000;
 }
 
-.toggle-buttons{margin:30px 0 60px;}
+#jackpot-title{
+font-size:2rem;
+margin-bottom:20px;
+color:gold;
+}
+
+/* Toggle */
+.toggle-buttons{
+margin:20px 0 40px;
+}
 
 .toggle-buttons button{
-padding:12px 30px;
-margin:0 10px;
+padding:10px 25px;
+margin:0 8px;
 border-radius:30px;
-border:1px solid gold;
+border:2px solid gold;
 background:transparent;
 color:gold;
 cursor:pointer;
-transition:0.3s;
+transition:.3s;
 }
 
 .toggle-buttons button.active{
 background:gold;
-color:black;
-font-weight:600;
+color:#7a0000;
+font-weight:700;
 }
 
+/* Game Card */
 .game{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,215,0,0.3);
+max-width:1000px;
+margin:0 auto 40px;
+background:rgba(0,0,0,0.65);
+border:2px solid gold;
 border-radius:20px;
-padding:40px;
-margin-bottom:40px;
-box-shadow:0 0 25px rgba(255,215,0,0.1);
-backdrop-filter:blur(10px);
+padding:35px;
+box-shadow:0 0 25px rgba(255,215,0,0.25);
 }
 
-.levels{display:flex;gap:20px;flex-wrap:wrap;}
-.level{flex:1;min-width:250px;background:rgba(0,0,0,0.5);padding:25px;border-radius:15px;}
-.amount{font-size:2rem;font-weight:700;margin:15px 0;color:#ffd700;}
-.date{font-size:0.9rem;color:#aaa;margin-top:8px;}
+.game h2{
+margin-bottom:20px;
+color:#ffd700;
+}
 
-footer{
-padding:40px;
-text-align:center;
+.levels{
+display:flex;
+justify-content:center;
+gap:25px;
+flex-wrap:wrap;
+}
+
+.level{
+flex:1;
+min-width:240px;
+background:rgba(120,0,0,0.5);
+border:1px solid gold;
+border-radius:15px;
+padding:20px;
+}
+
+.amount{
+font-size:2rem;
+font-weight:800;
 color:gold;
-background:#0b0f1a;
-font-size:0.9rem;
+margin:12px 0;
 }
 
-/* SCROLL REVEAL */
-.reveal{
-opacity:0;
-transform:translateY(60px);
-transition:all 0.8s ease;
+/* GOLD GLOW */
+@keyframes goldPulse{
+0%{text-shadow:0 0 6px rgba(255,215,0,0.5);}
+50%{text-shadow:0 0 25px rgba(255,215,0,1);}
+100%{text-shadow:0 0 6px rgba(255,215,0,0.5);}
 }
 
-.reveal.active{
-opacity:1;
-transform:translateY(0);
+.amount.glow{
+animation:goldPulse 2.2s infinite ease-in-out;
 }
 
+/* Footer */
+footer{
+padding:30px;
+text-align:center;
+background:#1a0000;
+color:gold;
+border-top:2px solid gold;
+}
+
+/* ===== MOBILE ===== */
 @media(max-width:768px){
-.levels{flex-direction:column;}
-.hero h1{font-size:2.2rem;}
-.event-box{padding:28px;}
+
+.hero{
+padding:130px 5% 60px;
+}
+
+.hero h1{
+font-size:2rem;
+}
+
+.event-box{
+padding:25px;
+}
+
+.levels{
+flex-direction:column;
+}
+
+.logo img{
+height:40px;
+}
+
+.lantern{
+font-size:26px;
+}
+
 }
 </style>
+
 </head>
 
 <body>
@@ -170,6 +270,10 @@ transform:translateY(0);
 <img src="https://indo.com.au/wp-content/uploads/2024/03/Group-3-1.png">
 </a>
 </div>
+
+<div class="lantern" style="left:10%;animation-duration:18s;">🏮</div>
+<div class="lantern" style="left:35%;animation-duration:22s;">🏮</div>
+<div class="lantern" style="left:70%;animation-duration:20s;">🏮</div>
 
 <div class="lang-switch">
 <button onclick="setLanguage('en',this)">🇬🇧</button>
@@ -183,7 +287,7 @@ transform:translateY(0);
 <section class="hero reveal" id="hero">
 <h1 id="event-title"></h1>
 <h2 id="event-subtitle"></h2>
-
+<div class="horse-badge">🐎 Chinese New Year – Year of the Horse 2026</div>
 <div class="event-box">
 <div class="prize" id="prize1"></div>
 <div class="prize" id="prize2"></div>
