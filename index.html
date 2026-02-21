@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
-  
+
 <style>
 *{
 margin:0;
@@ -97,11 +97,8 @@ background-position:center;
 background-repeat:no-repeat;
 }
 
-@keyframes fireGlow{
-0%{box-shadow:0 0 0 rgba(255,215,0,0);}
-50%{box-shadow:0 0 60px rgba(255,215,0,.35);}
-100%{box-shadow:0 0 0 rgba(255,215,0,0);}
-}
+/* quick fade used by language/event switching */
+.hero.fade{opacity:.25; transform:translateY(2px); transition:opacity .2s ease, transform .2s ease;}
 
 .hero h1{
 font-family:'Merienda', sans-serif;
@@ -119,6 +116,29 @@ color:#ffd700;
 margin-bottom:15px;
 }
 
+/* EVENT NAV (Prev/Next) */
+.event-nav{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:14px;
+margin:0 0 10px;
+}
+.event-nav button{
+width:44px;
+height:44px;
+border-radius:50%;
+border:1px solid rgba(255,215,0,.7);
+background:rgba(0,0,0,.35);
+color:#ffd24a;
+font-size:28px;
+line-height:1;
+cursor:pointer;
+transition:.2s;
+box-shadow:0 0 18px rgba(255,215,0,.12);
+}
+.event-nav button:active{transform:scale(.98);}
+
 .horse-badge{
 display:inline-block;
 background:linear-gradient(45deg,gold,#ffcc00);
@@ -126,7 +146,7 @@ color:#7a0000;
 padding:8px 22px;
 border-radius:25px;
 font-weight:700;
-margin-bottom:30px;
+margin-bottom:22px;
 box-shadow:0 0 20px rgba(255,215,0,0.4);
 }
 
@@ -139,6 +159,28 @@ border:2px solid gold;
 border-radius:18px;
 padding:40px;
 box-shadow:0 0 25px rgba(255,215,0,0.3);
+overflow:hidden;
+}
+
+.event-media{
+position:relative;
+display:none;
+margin:-40px -40px 22px; /* pull to edges of box */
+}
+.event-media.has-img{display:block;}
+.event-media::after{
+content:'';
+position:absolute;
+inset:0;
+background:linear-gradient(to bottom, rgba(0,0,0,0) 62%, rgba(0,0,0,0.45));
+pointer-events:none;
+}
+.event-img{
+width:100%;
+max-height:340px;
+object-fit:cover;
+display:block;
+filter:brightness(0.95) contrast(1.08) saturate(1.1);
 }
 
 .highlight{
@@ -277,6 +319,10 @@ font-size:2rem;
 padding:25px;
 }
 
+.event-media{
+margin:-25px -25px 18px;
+}
+
 .levels{
 flex-direction:column;
 }
@@ -317,17 +363,30 @@ font-size:26px;
 </nav>
 
 <section class="hero reveal" id="hero">
-<h1 id="event-title"></h1>
-<h2 id="event-subtitle"></h2>
-<div class="horse-badge">🐎 Chinese New Year – Year of the Horse 2026</div>
-<div class="event-box">
-<div class="prize" id="prize1"></div>
-<div class="prize" id="prize2"></div>
-<div class="prize" id="prize3"></div>
-<div class="schedule" id="schedule"></div>
-<div style="margin-top:25px;opacity:0.85;" id="location"></div>
-<div class="cta" id="cta-text"></div>
-</div>
+
+  <!-- Prev / Next -->
+  <div class="event-nav">
+    <button id="evtPrev" aria-label="Previous event">‹</button>
+    <button id="evtNext" aria-label="Next event">›</button>
+  </div>
+
+  <h1 id="event-title"></h1>
+  <h2 id="event-subtitle"></h2>
+  <div class="horse-badge" id="event-pill"></div>
+
+  <div class="event-box">
+    <!-- image area (auto hides if empty) -->
+    <div class="event-media" id="evtMediaWrap">
+      <img class="event-img" id="evtImage" alt="">
+    </div>
+
+    <div class="prize" id="prize1"></div>
+    <div class="prize" id="prize2"></div>
+    <div class="prize" id="prize3"></div>
+    <div class="schedule" id="schedule"></div>
+    <div style="margin-top:25px;opacity:0.85;" id="location"></div>
+    <div class="cta" id="cta-text"></div>
+  </div>
 </section>
 
 <section class="jackpot-section reveal">
@@ -344,84 +403,212 @@ font-size:26px;
 <footer>© 2026 IPGI Laos. All rights reserved.</footer>
 
 <script>
+/* =========================================================
+   EVENTS + TRANSLATIONS (Event Carousel)
+   ========================================================= */
 
-/* ===== TRANSLATIONS ===== */
-
-const translations = {
-  en:{
-    title:"Happy Hour Jackpot",
-    subtitle:"On-Going Event",
-    prize1:"1st Prize - <span class='highlight'>15,000 THB</span> (min bet: 5,000 THB)",
-    prize2:"2nd Prize - <span class='highlight'>10,000 THB</span> (min bet: 3,000 THB)",
-    prize3:"3rd Prize - <span class='highlight'>5,000 THB</span> (min bet: 1,000 THB)",
-    schedule:"<br><strong>Starts every Friday</strong><br>1st Session: 18:01H - 18:45H<br>2nd Session: 19:01H - 19:45H",
-    location:"Play at <strong>First Floor – Zone C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
-    cta:"Play and chance to win a Jackpot!"
+const events = [
+  {
+    id: "happy_hour",
+    image: "", // optional (keep blank)
+    translations: {
+      en:{
+        title:"Happy Hour Jackpot",
+        subtitle:"On-Going Event",
+        pill:"🐎 Chinese New Year – Year of the Horse 2026",
+        prize1:"1st Prize - <span class='highlight'>15,000 THB</span> (min bet: 5,000 THB)",
+        prize2:"2nd Prize - <span class='highlight'>10,000 THB</span> (min bet: 3,000 THB)",
+        prize3:"3rd Prize - <span class='highlight'>5,000 THB</span> (min bet: 1,000 THB)",
+        schedule:"<br><strong>Starts every Friday</strong><br>1st Session: 18:01H - 18:45H<br>2nd Session: 19:01H - 19:45H",
+        location:"Play at <strong>First Floor – Zone C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
+        cta:"Play and chance to win a Jackpot!"
+      },
+      th:{
+        title:"แฮปปี้อาวร์แจ็คพอต",
+        subtitle:"กิจกรรมกำลังดำเนินอยู่",
+        pill:"🐎 ตรุษจีน – ปีมะเมีย 2026",
+        prize1:"รางวัลที่ 1 - <span class='highlight'>15,000 บาท</span> (เดิมพันขั้นต่ำ: 5,000 บาท)",
+        prize2:"รางวัลที่ 2 - <span class='highlight'>10,000 บาท</span> (เดิมพันขั้นต่ำ: 3,000 บาท)",
+        prize3:"รางวัลที่ 3 - <span class='highlight'>5,000 บาท</span> (เดิมพันขั้นต่ำ: 1,000 บาท)",
+        schedule:"<br><strong>เริ่มทุกวันศุกร์</strong><br>รอบที่ 1: 18:01 - 18:45<br>รอบที่ 2: 19:01 - 19:45",
+        location:"เล่นที่ <strong>ชั้น 1 – โซน C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
+        cta:"ร่วมสนุกและลุ้นรับแจ็คพอต!"
+      },
+      zh:{
+        title:"欢乐时光累积大奖",
+        subtitle:"正在进行中",
+        pill:"🐎 农历新年 – 马年 2026",
+        prize1:"一等奖 - <span class='highlight'>15,000 泰铢</span>（最低投注：5,000 泰铢）",
+        prize2:"二等奖 - <span class='highlight'>10,000 泰铢</span>（最低投注：3,000 泰铢）",
+        prize3:"三等奖 - <span class='highlight'>5,000 泰铢</span>（最低投注：1,000 泰铢）",
+        schedule:"<br><strong>每周五开始</strong><br>第一场：18:01 - 18:45<br>第二场：19:01 - 19:45",
+        location:"地点：<strong>一楼 C 区</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
+        cta:"参与游戏，赢取大奖！"
+      },
+      lo:{
+        title:"ແຈັກພອດ Happy Hour",
+        subtitle:"ກຳລັງຈັດກິດຈະກຳ",
+        pill:"🐎 ຕຸດຈີນ – ປີມ້າ 2026",
+        prize1:"ລາງວັນທີ 1 - <span class='highlight'>15,000 ບາດ</span> (ເບດຂັ້ນຕ່ຳ: 5,000 ບາດ)",
+        prize2:"ລາງວັນທີ 2 - <span class='highlight'>10,000 ບາດ</span> (ເບດຂັ້ນຕ່ຳ: 3,000 ບາດ)",
+        prize3:"ລາງວັນທີ 3 - <span class='highlight'>5,000 ບາດ</span> (ເບດຂັ້ນຕ່ຳ: 1,000 ບາດ)",
+        schedule:"<br><strong>ເລີ່ມທຸກວັນສຸກ</strong><br>ຮອບ 1: 18:01 - 18:45<br>ຮອບ 2: 19:01 - 19:45",
+        location:"ຫຼິ້ນທີ່ <strong>ຊັ້ນ 1 – ໂຊນ C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
+        cta:"ຫຼິ້ນເພື່ອລຸ້ນແຈັກພອດ!"
+      },
+      ko:{
+        title:"해피 아워 잭팟",
+        subtitle:"진행 중 이벤트",
+        pill:"🐎 춘절 – 말의 해 2026",
+        prize1:"1등 - <span class='highlight'>15,000 바트</span> (최소 베팅: 5,000 바트)",
+        prize2:"2등 - <span class='highlight'>10,000 바트</span> (최소 베팅: 3,000 바트)",
+        prize3:"3등 - <span class='highlight'>5,000 바트</span> (최소 베팅: 1,000 바트)",
+        schedule:"<br><strong>매주 금요일 시작</strong><br>1차: 18:01 - 18:45<br>2차: 19:01 - 19:45",
+        location:"플레이 장소: <strong>1층 – C 구역</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
+        cta:"플레이하고 잭팟을 잡으세요!"
+      }
+    }
   },
-  th:{
-    title:"แฮปปี้อาวร์แจ็คพอต",
-    subtitle:"กิจกรรมกำลังดำเนินอยู่",
-    prize1:"รางวัลที่ 1 - <span class='highlight'>15,000 บาท</span> (เดิมพันขั้นต่ำ: 5,000 บาท)",
-    prize2:"รางวัลที่ 2 - <span class='highlight'>10,000 บาท</span> (เดิมพันขั้นต่ำ: 3,000 บาท)",
-    prize3:"รางวัลที่ 3 - <span class='highlight'>5,000 บาท</span> (เดิมพันขั้นต่ำ: 1,000 บาท)",
-    schedule:"<br><strong>เริ่มทุกวันศุกร์</strong><br>รอบที่ 1: 18:01 - 18:45<br>รอบที่ 2: 19:01 - 19:45",
-    location:"เล่นที่ <strong>ชั้น 1 – โซน C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
-    cta:"ร่วมสนุกและลุ้นรับแจ็คพอต!"
-  },
-  zh:{
-    title:"欢乐时光累积大奖",
-    subtitle:"正在进行中",
-    prize1:"一等奖 - <span class='highlight'>15,000 泰铢</span>（最低投注：5,000 泰铢）",
-    prize2:"二等奖 - <span class='highlight'>10,000 泰铢</span>（最低投注：3,000 泰铢）",
-    prize3:"三等奖 - <span class='highlight'>5,000 泰铢</span>（最低投注：1,000 泰铢）",
-    schedule:"<br><strong>每周五开始</strong><br>第一场：18:01 - 18:45<br>第二场：19:01 - 19:45",
-    location:"地点：<strong>一楼 C 区</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
-    cta:"参与游戏，赢取大奖！"
-  },
-  lo:{
-    title:"ແຈັກພອດ Happy Hour",
-    subtitle:"ກຳລັງຈັດກິດຈະກຳ",
-    prize1:"ລາງວັນທີ 1 - <span class='highlight'>15,000 ບາດ</span> (ເບດຂັ້ນຕ່ຳ: 5,000 ບາດ)",
-    prize2:"ລາງວັນທີ 2 - <span class='highlight'>10,000 ບາດ</span> (ເບດຂັ້ນຕ່ຳ: 3,000 ບາດ)",
-    prize3:"ລາງວັນທີ 3 - <span class='highlight'>5,000 ບາດ</span> (ເບດຂັ້ນຕ່ຳ: 1,000 ບາດ)",
-    schedule:"<br><strong>ເລີ່ມທຸກວັນສຸກ</strong><br>ຮອບ 1: 18:01 - 18:45<br>ຮອບ 2: 19:01 - 19:45",
-    location:"ຫຼິ້ນທີ່ <strong>ຊັ້ນ 1 – ໂຊນ C</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
-    cta:"ຫຼິ້ນເພື່ອລຸ້ນແຈັກພອດ!"
-  },
-  ko:{
-    title:"해피 아워 잭팟",
-    subtitle:"진행 중 이벤트",
-    prize1:"1등 - <span class='highlight'>15,000 바트</span> (최소 베팅: 5,000 바트)",
-    prize2:"2등 - <span class='highlight'>10,000 바트</span> (최소 베팅: 3,000 바트)",
-    prize3:"3등 - <span class='highlight'>5,000 바트</span> (최소 베팅: 1,000 바트)",
-    schedule:"<br><strong>매주 금요일 시작</strong><br>1차: 18:01 - 18:45<br>2차: 19:01 - 19:45",
-    location:"플레이 장소: <strong>1층 – C 구역</strong><br>Inspired Sabre Hydra & Alfastreet Wiky Roulette Machines",
-    cta:"플레이하고 잭팟을 잡으세요!"
+  {
+    id: "early_bird_donut",
+    // Put your donut image here (save your photo as this file in your project):
+    // images/early-bird-donut.png  OR  images/early-bird-donut.jpg
+    image: "images/early-bird-donut.webp",
+    translations: {
+      en:{
+        title:"Early Bird Donut",
+        subtitle:"Weekly Special",
+        pill:"🍩 Free Treat for Early Players",
+        prize1:"",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>Every Tuesday & Wednesday</strong><br><strong>Starts 09:00AM onwards</strong>",
+        location:"Location: <strong>First Floor – Zone C</strong>",
+        cta:"Free donut for players arrive early and play<br><strong>Limited stocks only</strong>"
+      },
+      th:{
+        title:"โดนัท Early Bird",
+        subtitle:"โปรโมชันประจำสัปดาห์",
+        pill:"🍩 ของว่างฟรีสำหรับผู้มาเช้า",
+        prize1:"",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>ทุกวันอังคาร & วันพุธ</strong><br><strong>09:00 – 11:00 น.</strong>",
+        location:"สถานที่: <strong>ชั้น 1 – โซน C<</strong>",
+        cta:"ฟรีโดนัทสำหรับผู้เล่นที่มาเช้าและร่วมเล่น<br><strong>มีจำนวนจำกัด</strong>"
+      },
+      zh:{
+        title:"早鸟甜甜圈",
+        subtitle:"每周特别活动",
+        pill:"🍩 早到玩家免费点心",
+        prize1:"",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>每周二 & 周三</strong><br><strong>09:00 – 11:00</strong>",
+        location:"地点：<strong>一楼 C 区</strong>",
+        cta:"早到并参与游戏的玩家可免费领取甜甜圈<br><strong>数量有限，送完即止</strong>"
+      },
+      lo:{
+        title:"Early Bird Donut",
+        subtitle:"ໂປຣໂມຊັນປະຈຳອາທິດ",
+        pill:"🍩 ໂດນັດຟຣີ ສຳລັບຜູ້ມາເຊົ້າ",
+        prize1:"",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>ທຸກວັນອັງຄານ & ວັນພຸດ</strong><br><strong>09:00 – 11:00</strong>",
+        location:"ສະຖານທີ່: <strong>ຊັ້ນ 1 – ໂຊນ C</strong>",
+        cta:"ໂດນັດຟຣີ ສຳລັບຜູ້ທີ່ມາເຊົ້າແລະຮ່ວມຫຼິ້ນ<br><strong>ມີຈຳນວນຈຳກັດ</strong>"
+      },
+      ko:{
+        title:"얼리버드 도넛",
+        subtitle:"주간 스페셜",
+        pill:"🍩 일찍 온 플레이어 무료 간식",
+        prize1:"",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>매주 화요일 & 수요일</strong><br><strong>09:00 – 11:00</strong>",
+        location:"장소: <strong>1층 – C 구역</strong>",
+        cta:"일찍 도착해 플레이하는 고객께 무료 도넛 제공<br><strong>수량 한정</strong>"
+      }
+    }
   }
-};
+];
 
-/* LANGUAGE */
+let currentEventIndex = 0;
+let currentLang = "en";
+
+/* LANGUAGE (keeps active event) */
 function setLanguage(lang,btn){
-const hero=document.getElementById("hero");
-hero.classList.add("fade");
-setTimeout(()=>{
-const t=translations[lang]||translations.en;
-document.getElementById("event-title").innerHTML=t.title;
-document.getElementById("event-subtitle").innerHTML=t.subtitle;
-document.getElementById("prize1").innerHTML=t.prize1;
-document.getElementById("prize2").innerHTML=t.prize2;
-document.getElementById("prize3").innerHTML=t.prize3;
-document.getElementById("schedule").innerHTML=t.schedule;
-document.getElementById("location").innerHTML=t.location;
-document.getElementById("cta-text").innerHTML=t.cta;
-hero.classList.remove("fade");
-},200);
-document.querySelectorAll(".lang-switch button").forEach(b=>b.classList.remove("active"));
-if(btn) btn.classList.add("active");
+  currentLang = lang || "en";
+  applyEventLanguage();
+  document.querySelectorAll(".lang-switch button").forEach(b=>b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
 }
-setLanguage("en",document.querySelector(".lang-switch button"));
 
-/* JACKPOT */
+/* Apply current event + language to UI */
+function applyEventLanguage(){
+  const hero = document.getElementById("hero");
+  hero.classList.add("fade");
+
+  setTimeout(()=>{
+    const evt = events[currentEventIndex] || events[0];
+    const t = (evt.translations && evt.translations[currentLang]) ? evt.translations[currentLang] : evt.translations.en;
+
+    document.getElementById("event-title").innerHTML = t.title || "";
+    document.getElementById("event-subtitle").innerHTML = t.subtitle || "";
+    document.getElementById("event-pill").innerHTML = t.pill || "";
+
+    // image
+    const mediaWrap = document.getElementById("evtMediaWrap");
+    const img = document.getElementById("evtImage");
+    if(evt.image && evt.image.trim() !== ""){
+      img.src = evt.image;
+      img.alt = t.title || "Event image";
+      mediaWrap.classList.add("has-img");
+    }else{
+      img.removeAttribute("src");
+      img.alt = "";
+      mediaWrap.classList.remove("has-img");
+    }
+
+    // content blocks (hide if empty)
+    setBlockHTML("prize1", t.prize1);
+    setBlockHTML("prize2", t.prize2);
+    setBlockHTML("prize3", t.prize3);
+    setBlockHTML("schedule", t.schedule);
+    setBlockHTML("location", t.location);
+    setBlockHTML("cta-text", t.cta);
+
+    hero.classList.remove("fade");
+  }, 160);
+}
+
+function setBlockHTML(id, html){
+  const el = document.getElementById(id);
+  el.innerHTML = html || "";
+  // hide empty blocks for donut event (clean layout)
+  const isEmpty = !html || String(html).trim() === "";
+  el.style.display = isEmpty ? "none" : "block";
+}
+
+/* Event Prev/Next */
+document.getElementById("evtPrev").addEventListener("click", ()=>{
+  currentEventIndex = (currentEventIndex - 1 + events.length) % events.length;
+  applyEventLanguage();
+});
+
+document.getElementById("evtNext").addEventListener("click", ()=>{
+  currentEventIndex = (currentEventIndex + 1) % events.length;
+  applyEventLanguage();
+});
+
+/* init language buttons */
+setLanguage("en", document.querySelector(".lang-switch button"));
+
+/* =========================================================
+   JACKPOT (UNCHANGED)
+   ========================================================= */
+
 let jackpotData={},currentMode="current";
 
 fetch("data.json")
@@ -477,7 +664,6 @@ else{el.textContent=target.toLocaleString()+" THB";}
 }
 requestAnimationFrame(update);
 }
-
 
 function renderJackpot(){
 
