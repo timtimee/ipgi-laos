@@ -137,7 +137,31 @@ cursor:pointer;
 transition:.2s;
 box-shadow:0 0 18px rgba(255,215,0,.12);
 }
-.event-nav button:active{transform:scale(.98);}
+..event-nav button:active{transform:scale(.98);}
+
+/* Dots (event indicators) */
+.evt-dots{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+min-width:64px;
+}
+.evt-dot{
+width:10px;
+height:10px;
+border-radius:50%;
+border:1px solid rgba(255,215,0,.75);
+background:rgba(0,0,0,.20);
+box-shadow:0 0 10px rgba(255,215,0,.10);
+cursor:pointer;
+transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.evt-dot.active{
+background:gold;
+box-shadow:0 0 18px rgba(255,215,0,.45);
+transform:scale(1.15);
+}
 
 .horse-badge{
 display:inline-block;
@@ -364,9 +388,12 @@ font-size:26px;
 
 <section class="hero reveal" id="hero">
 
-  <!-- Prev / Next -->
+  <!-- Prev / Next + Dots -->
   <div class="event-nav">
     <button id="evtPrev" aria-label="Previous event">‹</button>
+
+    <div class="evt-dots" id="evtDots" aria-label="Event pagination"></div>
+
     <button id="evtNext" aria-label="Next event">›</button>
   </div>
 
@@ -537,6 +564,56 @@ const events = [
 let currentEventIndex = 0;
 let currentLang = "en";
 
+/* Dots UI */
+const dotsWrap = document.getElementById("evtDots");
+
+function buildDots(){
+  if(!dotsWrap) return;
+  dotsWrap.innerHTML = "";
+  for(let i=0;i<events.length;i++){
+    const d = document.createElement("button");
+    d.type = "button";
+    d.className = "evt-dot" + (i===currentEventIndex ? " active" : "");
+    d.setAttribute("aria-label", "Go to event " + (i+1));
+    d.addEventListener("click", ()=>{
+      currentEventIndex = i;
+      applyEventLanguage();
+      restartAutoAdvance();
+    });
+    dotsWrap.appendChild(d);
+  }
+}
+
+function setActiveDot(){
+  if(!dotsWrap) return;
+  const dots = dotsWrap.querySelectorAll(".evt-dot");
+  dots.forEach((dot, i)=> dot.classList.toggle("active", i===currentEventIndex));
+}
+
+/* Auto-advance */
+let autoTimer = null;
+const AUTO_ADVANCE_MS = 4000; // 3-4 sec (set to 4 sec)
+
+function startAutoAdvance(){
+  stopAutoAdvance();
+  autoTimer = setInterval(()=>{
+    currentEventIndex = (currentEventIndex + 1) % events.length;
+    applyEventLanguage();
+  }, AUTO_ADVANCE_MS);
+}
+
+function stopAutoAdvance(){
+  if(autoTimer){
+    clearInterval(autoTimer);
+    autoTimer = null;
+  }
+}
+
+function restartAutoAdvance(){
+  startAutoAdvance();
+}
+
+
 /* LANGUAGE (keeps active event) */
 function setLanguage(lang,btn){
   currentLang = lang || "en";
@@ -579,6 +656,7 @@ function applyEventLanguage(){
     setBlockHTML("location", t.location);
     setBlockHTML("cta-text", t.cta);
 
+    setActiveDot();
     hero.classList.remove("fade");
   }, 160);
 }
@@ -595,15 +673,30 @@ function setBlockHTML(id, html){
 document.getElementById("evtPrev").addEventListener("click", ()=>{
   currentEventIndex = (currentEventIndex - 1 + events.length) % events.length;
   applyEventLanguage();
+  restartAutoAdvance();
 });
 
 document.getElementById("evtNext").addEventListener("click", ()=>{
   currentEventIndex = (currentEventIndex + 1) % events.length;
   applyEventLanguage();
+  restartAutoAdvance();
 });
 
+/* Pause auto-advance when user interacts */
+const heroSection = document.getElementById("hero");
+if(heroSection){
+  heroSection.addEventListener("mouseenter", stopAutoAdvance);
+  heroSection.addEventListener("mouseleave", startAutoAdvance);
+  heroSection.addEventListener("focusin", stopAutoAdvance);
+  heroSection.addEventListener("focusout", startAutoAdvance);
+  heroSection.addEventListener("touchstart", stopAutoAdvance, {passive:true});
+  heroSection.addEventListener("touchend", startAutoAdvance, {passive:true});
+}
+
 /* init language buttons */
+buildDots();
 setLanguage("en", document.querySelector(".lang-switch button"));
+startAutoAdvance();
 
 /* =========================================================
    JACKPOT (UNCHANGED)
