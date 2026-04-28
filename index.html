@@ -195,11 +195,11 @@ body::after{
 }
 
 .hero-content{
-  transition:opacity .22s ease, transform .22s ease;
+  transition:opacity .55s ease, transform .55s ease, filter .55s ease;
   width:100%;
   max-width:860px;
 }
-.hero-content.fade{opacity:0.05;transform:translateY(8px);}
+.hero-content.fade{opacity:0;transform:translateY(18px) scale(0.985);filter:blur(5px);}
 
 .event-overline{
   font-size:0.65rem;
@@ -304,6 +304,21 @@ body::after{
   border:1px solid rgba(255,215,0,0.18);
   font-size:0.88rem;
   color:rgba(255,245,230,0.78);
+}
+
+
+.event-box{
+  transition:transform .55s ease, box-shadow .55s ease;
+}
+.event-img{
+  transition:transform 1.2s ease, filter .55s ease;
+}
+.hero-content:not(.fade) .event-img{
+  animation:eventImageFloat 7s ease-in-out infinite alternate;
+}
+@keyframes eventImageFloat{
+  from{transform:scale(1);}
+  to{transform:scale(1.035);}
 }
 
 /* ══════════════════════════════════════
@@ -565,14 +580,125 @@ footer p{
 /* ══ EVENTS ══ */
 const events = [
   {
-    id:"early_bird_donut",
-    image:"images/early-bird-donut-1.webp",
+    id:"steam_bun",
+    image:"images/steambun.webp",
     translations:{
-      en:{title:"Early Bird Donut",subtitle:"Weekly Special",pill:"🍩 Free Treat for Early Players",prize1:"",prize2:"",prize3:"",schedule:"<br><strong>Every Tuesday &amp; Wednesday</strong><br><strong>Starts 09:00 AM onwards</strong>",location:"Location: <strong>First Floor – Zone C</strong>",cta:"Free donut for players who arrive early and play<br><strong>Limited stocks only</strong>"},
-      th:{title:"โดนัท Early Bird",subtitle:"โปรโมชันประจำสัปดาห์",pill:"🍩 ของว่างฟรีสำหรับผู้มาเช้า",prize1:"",prize2:"",prize3:"",schedule:"<br><strong>ทุกวันอังคาร &amp; วันพุธ</strong><br><strong>09:00 – 11:00 น.</strong>",location:"สถานที่: <strong>ชั้น 1 – โซน C</strong>",cta:"ฟรีโดนัทสำหรับผู้เล่นที่มาเช้าและร่วมเล่น<br><strong>มีจำนวนจำกัด</strong>"},
-      zh:{title:"早鸟甜甜圈",subtitle:"每周特别活动",pill:"🍩 早到玩家免费点心",prize1:"",prize2:"",prize3:"",schedule:"<br><strong>每周二 &amp; 周三</strong><br><strong>09:00 – 11:00</strong>",location:"地点：<strong>一楼 C 区</strong>",cta:"早到并参与游戏的玩家可免费领取甜甜圈<br><strong>数量有限，送完即止</strong>"},
-      lo:{title:"Early Bird Donut",subtitle:"ໂປຣໂມຊັນປະຈຳອາທິດ",pill:"🍩 ໂດນັດຟຣີ ສຳລັບຜູ້ມາເຊົ້າ",prize1:"",prize2:"",prize3:"",schedule:"<br><strong>ທຸກວັນອັງຄານ &amp; ວັນພຸດ</strong><br><strong>09:00 – 11:00</strong>",location:"ສະຖານທີ່: <strong>ຊັ້ນ 1 – ໂຊນ C</strong>",cta:"ໂດນັດຟຣີ ສຳລັບຜູ້ທີ່ມາເຊົ້າແລະຮ່ວມຫຼິ້ນ<br><strong>ມີຈຳນວນຈຳກັດ</strong>"},
-      ko:{title:"얼리버드 도넛",subtitle:"주간 스페셜",pill:"🍩 일찍 온 플레이어 무료 간식",prize1:"",prize2:"",prize3:"",schedule:"<br><strong>매주 화요일 &amp; 수요일</strong><br><strong>09:00 – 11:00</strong>",location:"장소: <strong>1층 – C 구역</strong>",cta:"일찍 도착해 플레이하는 고객께 무료 도넛 제공<br><strong>수량 한정</strong>"}
+      en:{
+        title:"Chinese Steam Pork Bun",
+        subtitle:"Morning Giveaway",
+        pill:"🥟 Free for Early Players",
+        prize1:"Chinese Steam Pork Bun - Giveaway",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>Every Tuesday &amp; Wednesday Morning</strong><br><strong>Starts 09:00 AM onwards</strong><br><strong>Until Supplies Last</strong>",
+        location:"Location: <strong>First Floor – Zone C</strong>",
+        cta:"Enjoy freshly steamed pork buns when you arrive early<br><strong>Limited stocks only</strong>"
+      },
+      th:{
+        title:"ซาลาเปาหมู",
+        subtitle:"แจกฟรีช่วงเช้า",
+        pill:"🥟 ฟรีสำหรับผู้เล่นที่มาเช้า",
+        prize1:"แจกฟรี ซาลาเปาหมู",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>ทุกวันอังคารและวันพุธช่วงเช้า</strong><br><strong>เริ่มเวลา 09:00 น. เป็นต้นไป</strong><br><strong>จนกว่าสินค้าจะหมด</strong>",
+        location:"สถานที่: <strong>ชั้น 1 – โซน C</strong>",
+        cta:"อร่อยกับซาลาเปาหมูร้อน ๆ สำหรับผู้เล่นที่มาเช้า<br><strong>มีจำนวนจำกัด</strong>"
+      },
+      zh:{
+        title:"中式猪肉包",
+        subtitle:"早晨免费派送",
+        pill:"🥟 早到玩家免费领取",
+        prize1:"中式猪肉包 - 免费赠送",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>每周二和周三早上</strong><br><strong>上午 09:00 开始</strong><br><strong>送完即止</strong>",
+        location:"地点：<strong>一楼 C 区</strong>",
+        cta:"早到参与游戏的玩家可免费领取热腾腾的猪肉包<br><strong>数量有限</strong>"
+      },
+      lo:{
+        title:"ຊາລາເປົາໄສ້ໝູ",
+        subtitle:"ແຈກຟຣີຕອນເຊົ້າ",
+        pill:"🥟 ຟຣີສຳລັບຜູ້ຫຼິ້ນທີ່ມາເຊົ້າ",
+        prize1:"ຊາລາເປົາໄສ້ໝູ - ແຈກຟຣີ",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>ທຸກວັນອັງຄານ ແລະ ວັນພຸດ ຕອນເຊົ້າ</strong><br><strong>ເລີ່ມ 09:00 ໂມງເຊົ້າ ເປັນຕົ້ນໄປ</strong><br><strong>ຈົນກວ່າຂອງຈະໝົດ</strong>",
+        location:"ສະຖານທີ່: <strong>ຊັ້ນ 1 – ໂຊນ C</strong>",
+        cta:"ຮັບຊາລາເປົາໄສ້ໝູຮ້ອນໆ ສຳລັບຜູ້ຫຼິ້ນທີ່ມາເຊົ້າ<br><strong>ມີຈຳນວນຈຳກັດ</strong>"
+      },
+      ko:{
+        title:"중국식 돼지고기 찐빵",
+        subtitle:"모닝 경품 이벤트",
+        pill:"🥟 일찍 온 플레이어 무료 제공",
+        prize1:"중국식 돼지고기 찐빵 - 무료 증정",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>매주 화요일 &amp; 수요일 아침</strong><br><strong>오전 09:00부터</strong><br><strong>재고 소진 시까지</strong>",
+        location:"장소: <strong>1층 – C 구역</strong>",
+        cta:"일찍 도착해 플레이하는 고객께 따뜻한 찐빵을 무료 제공<br><strong>수량 한정</strong>"
+      }
+    }
+  },
+  {
+    id:"egg_tart",
+    image:"images/eggtart.webp",
+    translations:{
+      en:{
+        title:"Egg Tart",
+        subtitle:"Morning Giveaway",
+        pill:"🥧 Free for Early Players",
+        prize1:"Egg Tart - Giveaway",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>Every Friday &amp; Saturday Morning</strong><br><strong>Starts 09:00 AM onwards</strong><br><strong>Until Supplies Last</strong>",
+        location:"Location: <strong>First Floor – Zone C</strong>",
+        cta:"Start your day with delicious egg tarts<br><strong>Limited stocks only</strong>"
+      },
+      th:{
+        title:"ทาร์ตไข่",
+        subtitle:"แจกฟรีช่วงเช้า",
+        pill:"🥧 ฟรีสำหรับผู้เล่นที่มาเช้า",
+        prize1:"แจกฟรี ทาร์ตไข่",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>ทุกวันศุกร์และวันเสาร์ช่วงเช้า</strong><br><strong>เริ่มเวลา 09:00 น. เป็นต้นไป</strong><br><strong>จนกว่าสินค้าจะหมด</strong>",
+        location:"สถานที่: <strong>ชั้น 1 – โซน C</strong>",
+        cta:"เริ่มต้นเช้าวันใหม่ด้วยทาร์ตไข่แสนอร่อย<br><strong>มีจำนวนจำกัด</strong>"
+      },
+      zh:{
+        title:"蛋挞",
+        subtitle:"早晨免费派送",
+        pill:"🥧 早到玩家免费领取",
+        prize1:"蛋挞 - 免费赠送",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>每周五和周六早上</strong><br><strong>上午 09:00 开始</strong><br><strong>送完即止</strong>",
+        location:"地点：<strong>一楼 C 区</strong>",
+        cta:"早到玩家可免费领取美味蛋挞，开启愉快早晨<br><strong>数量有限</strong>"
+      },
+      lo:{
+        title:"ທາດໄຂ່",
+        subtitle:"ແຈກຟຣີຕອນເຊົ້າ",
+        pill:"🥧 ຟຣີສຳລັບຜູ້ຫຼິ້ນທີ່ມາເຊົ້າ",
+        prize1:"ທາດໄຂ່ - ແຈກຟຣີ",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>ທຸກວັນສຸກ ແລະ ວັນເສົາ ຕອນເຊົ້າ</strong><br><strong>ເລີ່ມ 09:00 ໂມງເຊົ້າ ເປັນຕົ້ນໄປ</strong><br><strong>ຈົນກວ່າຂອງຈະໝົດ</strong>",
+        location:"ສະຖານທີ່: <strong>ຊັ້ນ 1 – ໂຊນ C</strong>",
+        cta:"ເລີ່ມມື້ໃໝ່ດ້ວຍທາດໄຂ່ແຊບໆ<br><strong>ມີຈຳນວນຈຳກັດ</strong>"
+      },
+      ko:{
+        title:"에그 타르트",
+        subtitle:"모닝 경품 이벤트",
+        pill:"🥧 일찍 온 플레이어 무료 제공",
+        prize1:"에그 타르트 - 무료 증정",
+        prize2:"",
+        prize3:"",
+        schedule:"<br><strong>매주 금요일 &amp; 토요일 아침</strong><br><strong>오전 09:00부터</strong><br><strong>재고 소진 시까지</strong>",
+        location:"장소: <strong>1층 – C 구역</strong>",
+        cta:"맛있는 에그 타르트로 아침을 시작하세요<br><strong>수량 한정</strong>"
+      }
     }
   }
 ];
@@ -614,7 +740,7 @@ function applyEvent(){
     setBlock("schedule",t.schedule);setBlock("location",t.location);setBlock("cta-text",t.cta);
     updateDots();
     content.classList.remove("fade");
-  },200);
+  },360);
 }
 
 function setBlock(id,html){
