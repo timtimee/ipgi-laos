@@ -1,0 +1,583 @@
+{
+  "defaultLanguage": "en",
+  "languages": [
+    {
+      "code": "en",
+      "label": "EN",
+      "name": "English",
+      "flag": "us"
+    },
+    {
+      "code": "zh",
+      "label": "CN",
+      "name": "中文",
+      "flag": "cn"
+    },
+    {
+      "code": "th",
+      "label": "TH",
+      "name": "ไทย",
+      "flag": "th"
+    },
+    {
+      "code": "lo",
+      "label": "LO",
+      "name": "ລາວ",
+      "flag": "la"
+    },
+    {
+      "code": "ko",
+      "label": "KR",
+      "name": "한국어",
+      "flag": "kr"
+    },
+    {
+      "code": "ja",
+      "label": "JP",
+      "name": "日本語",
+      "flag": "jp"
+    }
+  ],
+  "strings": {
+    "en": {
+      "brand": {
+        "subtitle": "Events & Jackpot"
+      },
+      "nav": {
+        "latest": "Latest Jackpot",
+        "events": "Events",
+        "promotions": "Promotions"
+      },
+      "jackpot": {
+        "eyebrow": "Latest Jackpot",
+        "title": "Jackpot Updates",
+        "lead": "Jackpot updates every 2 hours.",
+        "currentTab": "Current Jackpot",
+        "lastTab": "Last Jackpot Hits",
+        "loading": "Loading jackpot data...",
+        "noData": "No jackpot data available.",
+        "error": "Unable to load jackpot data. Please check data.json.",
+        "currentLabel": "Current Jackpot",
+        "lastLabel": "Last Jackpot Hit",
+        "level1": "Level 1",
+        "level2": "Level 2",
+        "updated": "Updated",
+        "date": "Date"
+      },
+      "events": {
+        "eyebrow": "Events",
+        "title": "Food Giveaway Events",
+        "lead": "Complimentary food for our early bird players who play on our Roulette Machines.",
+        "cards": {
+          "steam-bun": {
+            "title": "Chinese Steam Pork Bun",
+            "subtitle": "Morning Giveaway",
+            "tag": "Free for Early Players",
+            "schedule": "Every Tuesday & Wednesday Morning",
+            "time": "Starts 09:00 AM onwards",
+            "note": "Until Supplies Last",
+            "location": "First Floor – Zone C",
+            "description": "Enjoy freshly steamed pork buns for early players. Limited quantity available."
+          },
+          "egg-tart": {
+            "title": "Egg Tart",
+            "subtitle": "Morning Giveaway",
+            "tag": "Free for Early Players",
+            "schedule": "Every Friday & Saturday Morning",
+            "time": "Starts 09:00 AM onwards",
+            "note": "Until Supplies Last",
+            "location": "First Floor – Zone C",
+            "description": "Start your day with delicious egg tarts while enjoying your favorite games."
+          }
+        }
+      },
+      "promotions": {
+        "eyebrow": "Promotions",
+        "title": "Hydra Points Race",
+        "lead": "Play and earn Hydra Points.",
+        "liveRanking": "Live Ranking",
+        "top8Title": "Top 8 Qualified Players",
+        "viewFull": "View Full Leaderboard",
+        "lastUpdated": "Last Updated",
+        "showingTop8": "Showing Top 8",
+        "rank": "Rank",
+        "membership": "Membership",
+        "hydraPoints": "Hydra Points",
+        "loading": "Loading leaderboard data...",
+        "noData": "No leaderboard data available.",
+        "unable": "Unable to load Hydra leaderboard data.",
+        "checkUrl": "Please check the leaderboard JSON URL.",
+        "mechanicsBadge": "Hydra Event Mechanics",
+        "mechanicsTitle": "Hydra Points Race",
+        "mechanicsIntro": "VIP players must register with our PR Host to receive their Membership Number. Only players ranked in the Top 8 will qualify for Promotion Day.",
+        "rules": [
+          "Prize Pool: 210,000 THB",
+          "Promotion runs every Friday from 15:00H to 15:30H",
+          "Jackpot Drops every 10 minutes, worth 70,000 THB each",
+          "Minimum bet requirement for a chance to win the jackpot: 10,000 THB",
+          "Leaderboard ranking period: Saturday to Thursday",
+          "Leaderboard rankings reset every Friday at 16:00H"
+        ],
+        "comingTitle": "Promotion Coming Soon",
+        "comingLead": "Stay tuned for our upcoming Hydra Points Race promotion.",
+        "comingEyebrow": "Under Proposal",
+        "comingHeading": "Hydra Points Race is coming soon",
+        "comingText": "Full promotion mechanics and leaderboard details will be announced once the event is finalized."
+      },
+      "footer": {
+        "rights": "© 2026 IPGI Laos",
+        "tagline": "Premium Events & Jackpot Updates"
+      }
+    },
+    "zh": {
+      "brand": {
+        "subtitle": "活动与彩金"
+      },
+      "nav": {
+        "latest": "最新彩金",
+        "events": "活动",
+        "promotions": "促销"
+      },
+      "jackpot": {
+        "eyebrow": "最新彩金",
+        "title": "彩金更新",
+        "lead": "彩金每 2 小时更新一次。",
+        "currentTab": "当前彩金",
+        "lastTab": "最近中奖记录",
+        "loading": "正在加载彩金数据...",
+        "noData": "暂无彩金数据。",
+        "error": "无法加载彩金数据。请检查 data.json。",
+        "currentLabel": "当前彩金",
+        "lastLabel": "最近中奖",
+        "level1": "等级 1",
+        "level2": "等级 2",
+        "updated": "更新",
+        "date": "日期"
+      },
+      "events": {
+        "eyebrow": "活动",
+        "title": "美食赠送活动",
+        "lead": "为在轮盘机上游戏的早鸟玩家提供免费美食。",
+        "cards": {
+          "steam-bun": {
+            "title": "中式猪肉包",
+            "subtitle": "早晨赠送",
+            "tag": "早鸟玩家免费",
+            "schedule": "每周二和周三早晨",
+            "time": "上午 09:00 开始",
+            "note": "送完即止",
+            "location": "一楼 – C 区",
+            "description": "为早鸟玩家送上新鲜热腾的猪肉包。数量有限。"
+          },
+          "egg-tart": {
+            "title": "蛋挞",
+            "subtitle": "早晨赠送",
+            "tag": "早鸟玩家免费",
+            "schedule": "每周五和周六早晨",
+            "time": "上午 09:00 开始",
+            "note": "送完即止",
+            "location": "一楼 – C 区",
+            "description": "一边享受您喜爱的游戏，一边以美味蛋挞开启早晨。"
+          }
+        }
+      },
+      "promotions": {
+        "eyebrow": "促销",
+        "title": "Hydra 积分竞赛",
+        "lead": "游戏并赚取 Hydra 积分。",
+        "liveRanking": "实时排名",
+        "top8Title": "前 8 名合资格玩家",
+        "viewFull": "查看完整排行榜",
+        "lastUpdated": "最后更新",
+        "showingTop8": "显示前 8 名",
+        "rank": "排名",
+        "membership": "会员号",
+        "hydraPoints": "Hydra 积分",
+        "loading": "正在加载排行榜数据...",
+        "noData": "暂无排行榜数据。",
+        "unable": "无法加载 Hydra 排行榜数据。",
+        "checkUrl": "请检查排行榜 JSON 链接。",
+        "mechanicsBadge": "Hydra 活动规则",
+        "mechanicsTitle": "Hydra 积分竞赛",
+        "mechanicsIntro": "VIP 玩家必须向我们的 PR Host 登记以获得会员号码。只有排名前 8 的玩家才有资格参加促销日。",
+        "rules": [
+          "奖池：210,000 泰铢",
+          "促销时间：每周五 15:00H 至 15:30H",
+          "每 10 分钟一次 Jackpot Drops，每次价值 70,000 泰铢",
+          "获得彩金机会的最低投注要求：10,000 泰铢",
+          "排行榜统计周期：周六至周四",
+          "排行榜每周五 16:00H 重置"
+        ],
+        "comingTitle": "促销即将推出",
+        "comingLead": "敬请期待即将推出的 Hydra Points Race 促销活动。",
+        "comingEyebrow": "提案阶段",
+        "comingHeading": "Hydra Points Race 即将推出",
+        "comingText": "活动最终确认后，将公布完整的促销规则和排行榜详情。"
+      },
+      "footer": {
+        "rights": "© 2026 IPGI Laos",
+        "tagline": "尊贵活动与彩金更新"
+      }
+    },
+    "th": {
+      "brand": {
+        "subtitle": "กิจกรรมและแจ็กพอต"
+      },
+      "nav": {
+        "latest": "แจ็กพอตล่าสุด",
+        "events": "กิจกรรม",
+        "promotions": "โปรโมชั่น"
+      },
+      "jackpot": {
+        "eyebrow": "แจ็กพอตล่าสุด",
+        "title": "อัปเดตแจ็กพอต",
+        "lead": "อัปเดตแจ็กพอตทุก 2 ชั่วโมง",
+        "currentTab": "แจ็กพอตปัจจุบัน",
+        "lastTab": "แจ็กพอตล่าสุดที่ออก",
+        "loading": "กำลังโหลดข้อมูลแจ็กพอต...",
+        "noData": "ไม่มีข้อมูลแจ็กพอต",
+        "error": "ไม่สามารถโหลดข้อมูลแจ็กพอตได้ กรุณาตรวจสอบ data.json",
+        "currentLabel": "แจ็กพอตปัจจุบัน",
+        "lastLabel": "แจ็กพอตล่าสุดที่ออก",
+        "level1": "ระดับ 1",
+        "level2": "ระดับ 2",
+        "updated": "อัปเดต",
+        "date": "วันที่"
+      },
+      "events": {
+        "eyebrow": "กิจกรรม",
+        "title": "กิจกรรมแจกอาหาร",
+        "lead": "อาหารฟรีสำหรับผู้เล่น Early Bird ที่เล่นเครื่อง Roulette ของเรา",
+        "cards": {
+          "steam-bun": {
+            "title": "ซาลาเปาหมูจีน",
+            "subtitle": "แจกช่วงเช้า",
+            "tag": "ฟรีสำหรับผู้เล่น Early Bird",
+            "schedule": "ทุกเช้าวันอังคารและวันพุธ",
+            "time": "เริ่มตั้งแต่ 09:00 น. เป็นต้นไป",
+            "note": "จนกว่าสินค้าจะหมด",
+            "location": "ชั้น 1 – โซน C",
+            "description": "รับซาลาเปาหมูร้อน ๆ สำหรับผู้เล่น Early Bird จำนวนจำกัด"
+          },
+          "egg-tart": {
+            "title": "ทาร์ตไข่",
+            "subtitle": "แจกช่วงเช้า",
+            "tag": "ฟรีสำหรับผู้เล่น Early Bird",
+            "schedule": "ทุกเช้าวันศุกร์และวันเสาร์",
+            "time": "เริ่มตั้งแต่ 09:00 น. เป็นต้นไป",
+            "note": "จนกว่าสินค้าจะหมด",
+            "location": "ชั้น 1 – โซน C",
+            "description": "เริ่มต้นวันของคุณด้วยทาร์ตไข่แสนอร่อย พร้อมสนุกกับเกมโปรดของคุณ"
+          }
+        }
+      },
+      "promotions": {
+        "eyebrow": "โปรโมชั่น",
+        "title": "การแข่งขันสะสมคะแนน Hydra",
+        "lead": "เล่นและสะสมคะแนน Hydra",
+        "liveRanking": "อันดับสด",
+        "top8Title": "ผู้เล่น Top 8 ที่ผ่านเข้ารอบ",
+        "viewFull": "ดูอันดับเต็ม",
+        "lastUpdated": "อัปเดตล่าสุด",
+        "showingTop8": "แสดง Top 8",
+        "rank": "อันดับ",
+        "membership": "หมายเลขสมาชิก",
+        "hydraPoints": "คะแนน Hydra",
+        "loading": "กำลังโหลดข้อมูลอันดับ...",
+        "noData": "ไม่มีข้อมูลอันดับ",
+        "unable": "ไม่สามารถโหลดข้อมูลอันดับ Hydra ได้",
+        "checkUrl": "กรุณาตรวจสอบลิงก์ JSON ของอันดับ",
+        "mechanicsBadge": "กติกากิจกรรม Hydra",
+        "mechanicsTitle": "การแข่งขันสะสมคะแนน Hydra",
+        "mechanicsIntro": "ผู้เล่น VIP ต้องลงทะเบียนกับ PR Host เพื่อรับหมายเลขสมาชิก เฉพาะผู้เล่นที่อยู่ในอันดับ Top 8 เท่านั้นที่จะมีสิทธิ์เข้าร่วมวันโปรโมชั่น",
+        "rules": [
+          "เงินรางวัลรวม: 210,000 บาท",
+          "โปรโมชั่นจัดทุกวันศุกร์ เวลา 15:00H ถึง 15:30H",
+          "Jackpot Drops ทุก 10 นาที มูลค่า 70,000 บาทต่อครั้ง",
+          "ยอดเดิมพันขั้นต่ำเพื่อมีสิทธิ์ลุ้นแจ็กพอต: 10,000 บาท",
+          "ช่วงจัดอันดับ Leaderboard: วันเสาร์ถึงวันพฤหัสบดี",
+          "รีเซ็ตอันดับ Leaderboard ทุกวันศุกร์ เวลา 16:00H"
+        ],
+        "comingTitle": "โปรโมชั่นเร็ว ๆ นี้",
+        "comingLead": "โปรดติดตามโปรโมชั่น Hydra Points Race ที่กำลังจะมาถึง",
+        "comingEyebrow": "อยู่ระหว่างการเสนอ",
+        "comingHeading": "Hydra Points Race กำลังจะมาเร็ว ๆ นี้",
+        "comingText": "รายละเอียดกติกาโปรโมชั่นและข้อมูล Leaderboard จะประกาศเมื่อกิจกรรมได้รับการยืนยันเรียบร้อยแล้ว"
+      },
+      "footer": {
+        "rights": "© 2026 IPGI Laos",
+        "tagline": "กิจกรรมและอัปเดตแจ็กพอตระดับพรีเมียม"
+      }
+    },
+    "lo": {
+      "brand": {
+        "subtitle": "ກິດຈະກຳ ແລະ ແຈັກພັອດ"
+      },
+      "nav": {
+        "latest": "ແຈັກພັອດລ່າສຸດ",
+        "events": "ກິດຈະກຳ",
+        "promotions": "ໂປຣໂມຊັນ"
+      },
+      "jackpot": {
+        "eyebrow": "ແຈັກພັອດລ່າສຸດ",
+        "title": "ອັບເດດແຈັກພັອດ",
+        "lead": "ອັບເດດແຈັກພັອດທຸກ 2 ຊົ່ວໂມງ.",
+        "currentTab": "ແຈັກພັອດປັດຈຸບັນ",
+        "lastTab": "ແຈັກພັອດທີ່ອອກລ່າສຸດ",
+        "loading": "ກຳລັງໂຫຼດຂໍ້ມູນແຈັກພັອດ...",
+        "noData": "ບໍ່ມີຂໍ້ມູນແຈັກພັອດ.",
+        "error": "ບໍ່ສາມາດໂຫຼດຂໍ້ມູນແຈັກພັອດໄດ້. ກະລຸນາກວດສອບ data.json.",
+        "currentLabel": "ແຈັກພັອດປັດຈຸບັນ",
+        "lastLabel": "ແຈັກພັອດທີ່ອອກລ່າສຸດ",
+        "level1": "ລະດັບ 1",
+        "level2": "ລະດັບ 2",
+        "updated": "ອັບເດດ",
+        "date": "ວັນທີ"
+      },
+      "events": {
+        "eyebrow": "ກິດຈະກຳ",
+        "title": "ກິດຈະກຳແຈກອາຫານ",
+        "lead": "ອາຫານຟຣີສຳລັບຜູ້ຫຼິ້ນ Early Bird ທີ່ຫຼິ້ນເຄື່ອງ Roulette ຂອງພວກເຮົາ.",
+        "cards": {
+          "steam-bun": {
+            "title": "ຊາລາເປົາໝູຈີນ",
+            "subtitle": "ແຈກຕອນເຊົ້າ",
+            "tag": "ຟຣີສຳລັບຜູ້ຫຼິ້ນ Early Bird",
+            "schedule": "ທຸກເຊົ້າວັນອັງຄານ ແລະ ວັນພຸດ",
+            "time": "ເລີ່ມ 09:00 ໂມງ ເປັນຕົ້ນໄປ",
+            "note": "ຈົນກວ່າສິນຄ້າຈະໝົດ",
+            "location": "ຊັ້ນ 1 – ໂຊນ C",
+            "description": "ຮັບຊາລາເປົາໝູຮ້ອນໆ ສຳລັບຜູ້ຫຼິ້ນ Early Bird. ມີຈຳນວນຈຳກັດ."
+          },
+          "egg-tart": {
+            "title": "ທາດໄຂ່",
+            "subtitle": "ແຈກຕອນເຊົ້າ",
+            "tag": "ຟຣີສຳລັບຜູ້ຫຼິ້ນ Early Bird",
+            "schedule": "ທຸກເຊົ້າວັນສຸກ ແລະ ວັນເສົາ",
+            "time": "ເລີ່ມ 09:00 ໂມງ ເປັນຕົ້ນໄປ",
+            "note": "ຈົນກວ່າສິນຄ້າຈະໝົດ",
+            "location": "ຊັ້ນ 1 – ໂຊນ C",
+            "description": "ເລີ່ມຕົ້ນວັນຂອງທ່ານດ້ວຍທາດໄຂ່ແຊບໆ ພ້ອມຫຼິ້ນເກມທີ່ທ່ານມັກ."
+          }
+        }
+      },
+      "promotions": {
+        "eyebrow": "ໂປຣໂມຊັນ",
+        "title": "Hydra Points Race",
+        "lead": "ຫຼິ້ນ ແລະ ສະສົມ Hydra Points.",
+        "liveRanking": "ອັນດັບສົດ",
+        "top8Title": "ຜູ້ຫຼິ້ນ Top 8 ທີ່ຜ່ານເຂົ້າຮອບ",
+        "viewFull": "ເບິ່ງ Leaderboard ເຕັມ",
+        "lastUpdated": "ອັບເດດລ່າສຸດ",
+        "showingTop8": "ສະແດງ Top 8",
+        "rank": "ອັນດັບ",
+        "membership": "ເລກສະມາຊິກ",
+        "hydraPoints": "Hydra Points",
+        "loading": "ກຳລັງໂຫຼດຂໍ້ມູນ Leaderboard...",
+        "noData": "ບໍ່ມີຂໍ້ມູນ Leaderboard.",
+        "unable": "ບໍ່ສາມາດໂຫຼດຂໍ້ມູນ Hydra Leaderboard ໄດ້.",
+        "checkUrl": "ກະລຸນາກວດສອບລິ້ງ JSON ຂອງ Leaderboard.",
+        "mechanicsBadge": "ກະຕິກາກິດຈະກຳ Hydra",
+        "mechanicsTitle": "Hydra Points Race",
+        "mechanicsIntro": "ຜູ້ຫຼິ້ນ VIP ຕ້ອງລົງທະບຽນກັບ PR Host ເພື່ອຮັບເລກສະມາຊິກ. ມີພຽງຜູ້ຫຼິ້ນທີ່ຢູ່ໃນ Top 8 ເທົ່ານັ້ນທີ່ຈະມີສິດເຂົ້າຮ່ວມວັນໂປຣໂມຊັນ.",
+        "rules": [
+          "ລາງວັນລວມ: 210,000 THB",
+          "ໂປຣໂມຊັນຈັດທຸກວັນສຸກ ເວລາ 15:00H ຫາ 15:30H",
+          "Jackpot Drops ທຸກ 10 ນາທີ ມູນຄ່າ 70,000 THB ຕໍ່ຄັ້ງ",
+          "ຍອດເດີມພັນຂັ້ນຕ່ຳເພື່ອມີສິດລຸ້ນແຈັກພັອດ: 10,000 THB",
+          "ຊ່ວງຈັດອັນດັບ Leaderboard: ວັນເສົາຫາວັນພະຫັດ",
+          "ຣີເຊັດອັນດັບ Leaderboard ທຸກວັນສຸກ ເວລາ 16:00H"
+        ],
+        "comingTitle": "ໂປຣໂມຊັນກຳລັງຈະມາໃນໄວໆນີ້",
+        "comingLead": "ກະລຸນາຕິດຕາມໂປຣໂມຊັນ Hydra Points Race ທີ່ກຳລັງຈະມາ.",
+        "comingEyebrow": "ຢູ່ໃນຂັ້ນຕອນສະເໜີ",
+        "comingHeading": "Hydra Points Race ກຳລັງຈະມາໃນໄວໆນີ້",
+        "comingText": "ລາຍລະອຽດກະຕິກາໂປຣໂມຊັນ ແລະ Leaderboard ຈະປະກາດຫຼັງຈາກກິດຈະກຳຖືກຢືນຢັນແລ້ວ."
+      },
+      "footer": {
+        "rights": "© 2026 IPGI Laos",
+        "tagline": "ກິດຈະກຳ ແລະ ອັບເດດແຈັກພັອດລະດັບພຣີມຽມ"
+      }
+    },
+    "ko": {
+      "brand": {
+        "subtitle": "이벤트 & 잭팟"
+      },
+      "nav": {
+        "latest": "최신 잭팟",
+        "events": "이벤트",
+        "promotions": "프로모션"
+      },
+      "jackpot": {
+        "eyebrow": "최신 잭팟",
+        "title": "잭팟 업데이트",
+        "lead": "잭팟은 2시간마다 업데이트됩니다.",
+        "currentTab": "현재 잭팟",
+        "lastTab": "최근 잭팟 당첨",
+        "loading": "잭팟 데이터를 불러오는 중...",
+        "noData": "잭팟 데이터가 없습니다.",
+        "error": "잭팟 데이터를 불러올 수 없습니다. data.json을 확인해 주세요.",
+        "currentLabel": "현재 잭팟",
+        "lastLabel": "최근 잭팟 당첨",
+        "level1": "레벨 1",
+        "level2": "레벨 2",
+        "updated": "업데이트",
+        "date": "날짜"
+      },
+      "events": {
+        "eyebrow": "이벤트",
+        "title": "무료 음식 이벤트",
+        "lead": "저희 룰렛 머신을 이용하는 얼리버드 플레이어를 위한 무료 음식입니다.",
+        "cards": {
+          "steam-bun": {
+            "title": "중국식 돼지고기 찐빵",
+            "subtitle": "아침 증정 이벤트",
+            "tag": "얼리버드 플레이어 무료",
+            "schedule": "매주 화요일 및 수요일 아침",
+            "time": "오전 09:00부터",
+            "note": "소진 시까지",
+            "location": "1층 – C 구역",
+            "description": "얼리버드 플레이어를 위해 갓 찐 따뜻한 돼지고기 찐빵을 제공합니다. 수량 한정."
+          },
+          "egg-tart": {
+            "title": "에그 타르트",
+            "subtitle": "아침 증정 이벤트",
+            "tag": "얼리버드 플레이어 무료",
+            "schedule": "매주 금요일 및 토요일 아침",
+            "time": "오전 09:00부터",
+            "note": "소진 시까지",
+            "location": "1층 – C 구역",
+            "description": "좋아하는 게임과 함께 맛있는 에그 타르트로 하루를 시작하세요."
+          }
+        }
+      },
+      "promotions": {
+        "eyebrow": "프로모션",
+        "title": "Hydra Points Race",
+        "lead": "플레이하고 Hydra Points를 적립하세요.",
+        "liveRanking": "실시간 순위",
+        "top8Title": "상위 8명 참가 자격 플레이어",
+        "viewFull": "전체 리더보드 보기",
+        "lastUpdated": "마지막 업데이트",
+        "showingTop8": "상위 8 표시",
+        "rank": "순위",
+        "membership": "회원 번호",
+        "hydraPoints": "Hydra Points",
+        "loading": "리더보드 데이터를 불러오는 중...",
+        "noData": "리더보드 데이터가 없습니다.",
+        "unable": "Hydra 리더보드 데이터를 불러올 수 없습니다.",
+        "checkUrl": "리더보드 JSON URL을 확인해 주세요.",
+        "mechanicsBadge": "Hydra 이벤트 규칙",
+        "mechanicsTitle": "Hydra Points Race",
+        "mechanicsIntro": "VIP 플레이어는 PR Host에게 등록하여 회원 번호를 받아야 합니다. 상위 8위 안에 든 플레이어만 프로모션 데이에 참가할 수 있습니다.",
+        "rules": [
+          "총 상금: 210,000 THB",
+          "프로모션은 매주 금요일 15:00H부터 15:30H까지 진행됩니다",
+          "10분마다 70,000 THB 상당의 Jackpot Drops가 진행됩니다",
+          "잭팟 당첨 기회를 위한 최소 베팅 요건: 10,000 THB",
+          "리더보드 순위 집계 기간: 토요일부터 목요일까지",
+          "리더보드 순위는 매주 금요일 16:00H에 초기화됩니다"
+        ],
+        "comingTitle": "프로모션 곧 공개",
+        "comingLead": "곧 시작될 Hydra Points Race 프로모션을 기대해 주세요.",
+        "comingEyebrow": "제안 검토 중",
+        "comingHeading": "Hydra Points Race가 곧 시작됩니다",
+        "comingText": "이벤트가 확정되면 전체 프로모션 규칙과 리더보드 상세 내용이 안내됩니다."
+      },
+      "footer": {
+        "rights": "© 2026 IPGI Laos",
+        "tagline": "프리미엄 이벤트 & 잭팟 업데이트"
+      }
+    },
+    "ja": {
+      "brand": {
+        "subtitle": "イベント & ジャックポット"
+      },
+      "nav": {
+        "latest": "最新ジャックポット",
+        "events": "イベント",
+        "promotions": "プロモーション"
+      },
+      "jackpot": {
+        "eyebrow": "最新ジャックポット",
+        "title": "ジャックポット更新",
+        "lead": "ジャックポットは2時間ごとに更新されます。",
+        "currentTab": "現在のジャックポット",
+        "lastTab": "最新の当選履歴",
+        "loading": "ジャックポットデータを読み込み中...",
+        "noData": "ジャックポットデータはありません。",
+        "error": "ジャックポットデータを読み込めません。data.jsonを確認してください。",
+        "currentLabel": "現在のジャックポット",
+        "lastLabel": "最新の当選",
+        "level1": "レベル 1",
+        "level2": "レベル 2",
+        "updated": "更新",
+        "date": "日付"
+      },
+      "events": {
+        "eyebrow": "イベント",
+        "title": "フードプレゼントイベント",
+        "lead": "当店のルーレットマシンでプレイするアーリーバードプレイヤーへの無料フードです。",
+        "cards": {
+          "steam-bun": {
+            "title": "中華豚肉まん",
+            "subtitle": "朝のプレゼント",
+            "tag": "アーリーバードプレイヤー無料",
+            "schedule": "毎週火曜日・水曜日の朝",
+            "time": "午前09:00開始",
+            "note": "なくなり次第終了",
+            "location": "1階 – ゾーンC",
+            "description": "アーリーバードプレイヤーに、蒸したての豚肉まんをご提供します。数量限定です。"
+          },
+          "egg-tart": {
+            "title": "エッグタルト",
+            "subtitle": "朝のプレゼント",
+            "tag": "アーリーバードプレイヤー無料",
+            "schedule": "毎週金曜日・土曜日の朝",
+            "time": "午前09:00開始",
+            "note": "なくなり次第終了",
+            "location": "1階 – ゾーンC",
+            "description": "お気に入りのゲームと一緒に、おいしいエッグタルトで一日を始めましょう。"
+          }
+        }
+      },
+      "promotions": {
+        "eyebrow": "プロモーション",
+        "title": "Hydra Points Race",
+        "lead": "プレイしてHydra Pointsを獲得しましょう。",
+        "liveRanking": "ライブランキング",
+        "top8Title": "Top 8 参加資格プレイヤー",
+        "viewFull": "全ランキングを見る",
+        "lastUpdated": "最終更新",
+        "showingTop8": "Top 8を表示中",
+        "rank": "順位",
+        "membership": "会員番号",
+        "hydraPoints": "Hydra Points",
+        "loading": "ランキングデータを読み込み中...",
+        "noData": "ランキングデータはありません。",
+        "unable": "Hydraランキングデータを読み込めません。",
+        "checkUrl": "ランキングJSON URLを確認してください。",
+        "mechanicsBadge": "Hydraイベントルール",
+        "mechanicsTitle": "Hydra Points Race",
+        "mechanicsIntro": "VIPプレイヤーはPR Hostで登録し、会員番号を受け取る必要があります。Top 8にランクインしたプレイヤーのみ、プロモーションデーに参加できます。",
+        "rules": [
+          "賞金総額：210,000 THB",
+          "プロモーションは毎週金曜日 15:00H から 15:30H まで開催",
+          "10分ごとに70,000 THB相当のJackpot Dropsを実施",
+          "ジャックポット獲得チャンスの最低ベット条件：10,000 THB",
+          "リーダーボード集計期間：土曜日から木曜日",
+          "リーダーボード順位は毎週金曜日 16:00H にリセット"
+        ],
+        "comingTitle": "プロモーション近日公開",
+        "comingLead": "近日公開予定のHydra Points Raceプロモーションをお楽しみに。",
+        "comingEyebrow": "提案中",
+        "comingHeading": "Hydra Points Raceは近日公開予定です",
+        "comingText": "イベント確定後、プロモーション詳細とリーダーボード情報を発表します。"
+      },
+      "footer": {
+        "rights": "© 2026 IPGI Laos",
+        "tagline": "プレミアムイベント & ジャックポット更新"
+      }
+    }
+  }
+}
