@@ -1250,3 +1250,46 @@ html[lang="ja"] .mini-table th {
     height: 18px;
   }
 }
+
+/* v13 promo leaderboard tier/status badge display */
+.tier-badge,
+.status-badge {
+  display: block;
+  width: auto;
+  max-width: 118px;
+  height: 42px;
+  object-fit: contain;
+  margin: 0 auto;
+  filter: drop-shadow(0 6px 10px rgba(84, 47, 0, .18));
+}
+
+.status-badge {
+  max-width: 132px;
+}
+
+.badge-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #fff2bd, #d9a72e);
+  color: #3a2507;
+  font-size: .76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.mini-table {
+  min-width: 680px;
+}
+
+@media (max-width: 640px) {
+  .tier-badge,
+  .status-badge {
+    max-width: 96px;
+    height: 34px;
+  }
+}

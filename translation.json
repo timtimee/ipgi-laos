@@ -102,7 +102,7 @@
         "showingTop8": "Showing Top 8",
         "rank": "Rank",
         "membership": "Membership",
-        "hydraPoints": "Hydra Points",
+        "hydraPoints": "Tier Rank",
         "loading": "Loading leaderboard data...",
         "noData": "No leaderboard data available.",
         "unable": "Unable to load Hydra leaderboard data.",
@@ -122,7 +122,9 @@
         "comingLead": "Stay tuned for our upcoming Hydra Points Race promotion.",
         "comingEyebrow": "Under Proposal",
         "comingHeading": "Hydra Points Race is coming soon",
-        "comingText": "Full promotion mechanics and leaderboard details will be announced once the event is finalized."
+        "comingText": "Full promotion mechanics and leaderboard details will be announced once the event is finalized.",
+        "tierRank": "Tier Rank",
+        "status": "Status"
       },
       "footer": {
         "rights": "© 2026 IPGI Laos",
@@ -192,7 +194,7 @@
         "showingTop8": "显示前 8 名",
         "rank": "排名",
         "membership": "会员号",
-        "hydraPoints": "Hydra 积分",
+        "hydraPoints": "等级排名",
         "loading": "正在加载排行榜数据...",
         "noData": "暂无排行榜数据。",
         "unable": "无法加载 Hydra 排行榜数据。",
@@ -212,7 +214,9 @@
         "comingLead": "敬请期待即将推出的 Hydra Points Race 促销活动。",
         "comingEyebrow": "提案阶段",
         "comingHeading": "Hydra Points Race 即将推出",
-        "comingText": "活动最终确认后，将公布完整的促销规则和排行榜详情。"
+        "comingText": "活动最终确认后，将公布完整的促销规则和排行榜详情。",
+        "tierRank": "等级排名",
+        "status": "状态"
       },
       "footer": {
         "rights": "© 2026 IPGI Laos",
@@ -282,7 +286,7 @@
         "showingTop8": "แสดง Top 8",
         "rank": "อันดับ",
         "membership": "หมายเลขสมาชิก",
-        "hydraPoints": "คะแนน Hydra",
+        "hydraPoints": "ระดับสมาชิก",
         "loading": "กำลังโหลดข้อมูลอันดับ...",
         "noData": "ไม่มีข้อมูลอันดับ",
         "unable": "ไม่สามารถโหลดข้อมูลอันดับ Hydra ได้",
@@ -302,7 +306,9 @@
         "comingLead": "โปรดติดตามโปรโมชั่น Hydra Points Race ที่กำลังจะมาถึง",
         "comingEyebrow": "อยู่ระหว่างการเสนอ",
         "comingHeading": "Hydra Points Race กำลังจะมาเร็ว ๆ นี้",
-        "comingText": "รายละเอียดกติกาโปรโมชั่นและข้อมูล Leaderboard จะประกาศเมื่อกิจกรรมได้รับการยืนยันเรียบร้อยแล้ว"
+        "comingText": "รายละเอียดกติกาโปรโมชั่นและข้อมูล Leaderboard จะประกาศเมื่อกิจกรรมได้รับการยืนยันเรียบร้อยแล้ว",
+        "tierRank": "ระดับสมาชิก",
+        "status": "สถานะ"
       },
       "footer": {
         "rights": "© 2026 IPGI Laos",
@@ -372,7 +378,7 @@
         "showingTop8": "ສະແດງ Top 8",
         "rank": "ອັນດັບ",
         "membership": "ເລກສະມາຊິກ",
-        "hydraPoints": "Hydra Points",
+        "hydraPoints": "ລະດັບຂັ້ນ",
         "loading": "ກຳລັງໂຫຼດຂໍ້ມູນ Leaderboard...",
         "noData": "ບໍ່ມີຂໍ້ມູນ Leaderboard.",
         "unable": "ບໍ່ສາມາດໂຫຼດຂໍ້ມູນ Hydra Leaderboard ໄດ້.",
@@ -392,7 +398,9 @@
         "comingLead": "ກະລຸນາຕິດຕາມໂປຣໂມຊັນ Hydra Points Race ທີ່ກຳລັງຈະມາ.",
         "comingEyebrow": "ຢູ່ໃນຂັ້ນຕອນສະເໜີ",
         "comingHeading": "Hydra Points Race ກຳລັງຈະມາໃນໄວໆນີ້",
-        "comingText": "ລາຍລະອຽດກະຕິກາໂປຣໂມຊັນ ແລະ Leaderboard ຈະປະກາດຫຼັງຈາກກິດຈະກຳຖືກຢືນຢັນແລ້ວ."
+        "comingText": "ລາຍລະອຽດກະຕິກາໂປຣໂມຊັນ ແລະ Leaderboard ຈະປະກາດຫຼັງຈາກກິດຈະກຳຖືກຢືນຢັນແລ້ວ.",
+        "tierRank": "ລະດັບຂັ້ນ",
+        "status": "ສະຖານະ"
       },
       "footer": {
         "rights": "© 2026 IPGI Laos",
@@ -462,7 +470,7 @@
         "showingTop8": "상위 8 표시",
         "rank": "순위",
         "membership": "회원 번호",
-        "hydraPoints": "Hydra Points",
+        "hydraPoints": "등급 순위",
         "loading": "리더보드 데이터를 불러오는 중...",
         "noData": "리더보드 데이터가 없습니다.",
         "unable": "Hydra 리더보드 데이터를 불러올 수 없습니다.",
@@ -482,7 +490,9 @@
         "comingLead": "곧 시작될 Hydra Points Race 프로모션을 기대해 주세요.",
         "comingEyebrow": "제안 검토 중",
         "comingHeading": "Hydra Points Race가 곧 시작됩니다",
-        "comingText": "이벤트가 확정되면 전체 프로모션 규칙과 리더보드 상세 내용이 안내됩니다."
+        "comingText": "이벤트가 확정되면 전체 프로모션 규칙과 리더보드 상세 내용이 안내됩니다.",
+        "tierRank": "등급 순위",
+        "status": "상태"
       },
       "footer": {
         "rights": "© 2026 IPGI Laos",
@@ -552,7 +562,7 @@
         "showingTop8": "Top 8を表示中",
         "rank": "順位",
         "membership": "会員番号",
-        "hydraPoints": "Hydra Points",
+        "hydraPoints": "ティアランク",
         "loading": "ランキングデータを読み込み中...",
         "noData": "ランキングデータはありません。",
         "unable": "Hydraランキングデータを読み込めません。",
@@ -572,7 +582,9 @@
         "comingLead": "近日公開予定のHydra Points Raceプロモーションをお楽しみに。",
         "comingEyebrow": "提案中",
         "comingHeading": "Hydra Points Raceは近日公開予定です",
-        "comingText": "イベント確定後、プロモーション詳細とリーダーボード情報を発表します。"
+        "comingText": "イベント確定後、プロモーション詳細とリーダーボード情報を発表します。",
+        "tierRank": "ティアランク",
+        "status": "ステータス"
       },
       "footer": {
         "rights": "© 2026 IPGI Laos",

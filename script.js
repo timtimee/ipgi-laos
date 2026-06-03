@@ -27,6 +27,105 @@ function formatNumber(value) {
   return Number.isFinite(number) ? number.toLocaleString('en-US') : '--';
 }
 
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+const TIER_THRESHOLDS = [
+  { min: 30000, key: 'platinum', label: 'Platinum' },
+  { min: 28000, key: 'gold5', label: 'Gold V' },
+  { min: 26000, key: 'gold4', label: 'Gold IV' },
+  { min: 24000, key: 'gold3', label: 'Gold III' },
+  { min: 22000, key: 'gold2', label: 'Gold II' },
+  { min: 20000, key: 'gold1', label: 'Gold I' },
+  { min: 18000, key: 'silver5', label: 'Silver V' },
+  { min: 16000, key: 'silver4', label: 'Silver IV' },
+  { min: 14000, key: 'silver3', label: 'Silver III' },
+  { min: 12000, key: 'silver2', label: 'Silver II' },
+  { min: 10000, key: 'silver1', label: 'Silver I' },
+  { min: 8000, key: 'bronze5', label: 'Bronze V' },
+  { min: 6000, key: 'bronze4', label: 'Bronze IV' },
+  { min: 4000, key: 'bronze3', label: 'Bronze III' },
+  { min: 2000, key: 'bronze2', label: 'Bronze II' },
+  { min: 0, key: 'bronze1', label: 'Bronze I' }
+];
+
+const TIER_LABELS = {
+  bronze1: 'Bronze I', bronze2: 'Bronze II', bronze3: 'Bronze III', bronze4: 'Bronze IV', bronze5: 'Bronze V',
+  silver1: 'Silver I', silver2: 'Silver II', silver3: 'Silver III', silver4: 'Silver IV', silver5: 'Silver V',
+  gold1: 'Gold I', gold2: 'Gold II', gold3: 'Gold III', gold4: 'Gold IV', gold5: 'Gold V',
+  platinum: 'Platinum'
+};
+
+const STATUS_LABELS = {
+  top8: 'Top 8',
+  qualified: 'Qualified',
+  rising: 'Rising',
+  promoted: 'Almost Promoted'
+};
+
+function normalizeBadgeKey(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/ⅰ/g, 'i')
+    .replace(/ⅱ/g, 'ii')
+    .replace(/ⅲ/g, 'iii')
+    .replace(/ⅳ/g, 'iv')
+    .replace(/ⅴ/g, 'v')
+    .replace(/iv/g, '4')
+    .replace(/iii/g, '3')
+    .replace(/ii/g, '2')
+    .replace(/i/g, '1')
+    .replace(/v/g, '5')
+    .replace(/almost\s*promoted/g, 'promoted')
+    .replace(/top\s*8/g, 'top8')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+function resolveTier(row) {
+  const directImage = row.tierImage || row.tier_image || row.tierImg || row.tier_img;
+  if (directImage) {
+    const label = row.tierLabel || row.tier_label || row.tierRank || row.tier || 'Tier Rank';
+    return { src: directImage, label: String(label) };
+  }
+
+  const explicitKey = normalizeBadgeKey(row.tierKey || row.tier_key || row.tierRank || row.tier_rank || row.tier || row.rankTier);
+  const key = TIER_LABELS[explicitKey] ? explicitKey : (TIER_THRESHOLDS.find((tier) => Number(row.points || 0) >= tier.min) || TIER_THRESHOLDS.at(-1)).key;
+
+  return {
+    src: `images/tier/${key}.webp`,
+    label: TIER_LABELS[key] || 'Tier Rank'
+  };
+}
+
+function resolveStatus(row, index) {
+  const directImage = row.statusImage || row.status_image || row.statusImg || row.status_img;
+  if (directImage) {
+    const label = row.statusLabel || row.status_label || row.status || 'Status';
+    return { src: directImage, label: String(label) };
+  }
+
+  const explicitKey = normalizeBadgeKey(row.statusKey || row.status_key || row.status);
+  const rank = Number(row.rank || index + 1);
+  const key = STATUS_LABELS[explicitKey] ? explicitKey : (rank <= 8 ? 'top8' : 'rising');
+
+  return {
+    src: `images/status/${key}.webp`,
+    label: STATUS_LABELS[key] || 'Status'
+  };
+}
+
+function renderBadgeImage(badge, className) {
+  const src = escapeHtml(badge.src);
+  const label = escapeHtml(badge.label);
+  return `<img class="${className}" src="${src}" alt="${label}" title="${label}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'), { className: 'badge-fallback', textContent: '${label}' }))" />`;
+}
+
 function getByPath(object, path) {
   return path.split('.').reduce((current, key) => current?.[key], object);
 }
@@ -290,7 +389,7 @@ async function loadLeaderboardPreview() {
     renderLeaderboardPreview(latestLeaderboardData);
   } catch (error) {
     setStatus(meta, t('promotions.unable', 'Unable to load Hydra leaderboard data.'));
-    body.innerHTML = `<tr><td colspan="3">${t('promotions.checkUrl', 'Please check the leaderboard JSON URL.')}</td></tr>`;
+    body.innerHTML = `<tr><td colspan="4">${t('promotions.checkUrl', 'Please check the leaderboard JSON URL.')}</td></tr>`;
   }
 }
 
@@ -308,16 +407,22 @@ function renderLeaderboardPreview(data) {
 
   setStatus(meta, `${t('promotions.lastUpdated', 'Last Updated')}: ${data.lastUpdated || '--'} • ${t('promotions.showingTop8', 'Showing Top 8')}`);
 
-  body.innerHTML = rows.map((row, index) => `
-    <tr>
-      <td><span class="rank-pill">${row.rank || index + 1}</span></td>
-      <td>${row.membership || '--'}</td>
-      <td><strong>${formatNumber(row.points)}</strong></td>
-    </tr>
-  `).join('');
+  body.innerHTML = rows.map((row, index) => {
+    const tier = resolveTier(row);
+    const status = resolveStatus(row, index);
+
+    return `
+      <tr>
+        <td><span class="rank-pill">${escapeHtml(row.rank || index + 1)}</span></td>
+        <td>${escapeHtml(row.membership || '--')}</td>
+        <td>${renderBadgeImage(tier, 'tier-badge')}</td>
+        <td>${renderBadgeImage(status, 'status-badge')}</td>
+      </tr>
+    `;
+  }).join('');
 
   if (!rows.length) {
-    body.innerHTML = `<tr><td colspan="3">${t('promotions.noData', 'No leaderboard data available.')}</td></tr>`;
+    body.innerHTML = `<tr><td colspan="4">${t('promotions.noData', 'No leaderboard data available.')}</td></tr>`;
   }
 }
 
